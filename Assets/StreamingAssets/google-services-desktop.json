@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "468086904025",
+    "firebase_url": "https://hardwarena-8502b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hardwarena-8502b",
+    "storage_bucket": "hardwarena-8502b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468086904025:android:40857dfd22cf6b071edac8",
+        "android_client_info": {
+          "package_name": "com.atomecity.hardwarenamobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFxbiErq16eatP4b89w2rLmqysB7zLoVc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

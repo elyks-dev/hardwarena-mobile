@@ -1,0 +1,190 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function isInstructor() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'instructor';
+    }
+
+    function isStaff() {
+      return isAdmin() || isInstructor();
+    }
+
+    function isStudent(userId) {
+      return isOwner(userId)
+        && exists(/databases/$(database)/documents/users/$(userId))
+        && get(/databases/$(database)/documents/users/$(userId)).data.role == 'student';
+    }
+
+    match /users/{userId} {
+      // The app performs a signed-in collection query for rankings and a
+      // single-result pre-auth username query during signup.
+      allow get: if isOwner(userId) || isStaff();
+      allow list: if isSignedIn() || request.query.limit == 1;
+
+      allow create: if isOwner(userId)
+        && request.resource.data.keys().hasOnly([
+          'fullName', 'username', 'email', 'role', 'xp', 'level', 'createdAt'
+        ])
+        && request.resource.data.role == 'student'
+        && request.resource.data.xp == 0
+        && request.resource.data.level == 1
+        && request.resource.data.email is string
+        && request.resource.data.username is string
+        && request.resource.data.fullName is string;
+
+      allow update: if isAdmin()
+        || (isStudent(userId)
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+            'xp', 'level', 'rank', 'bio', 'profileImage', 'displayedBadges',
+            'lastLogin', 'lastKnownDevice', 'lastKnownPlatform'
+          ]));
+
+      allow delete: if isAdmin();
+
+      match /badges/{badgeId} {
+        allow read: if isOwner(userId) || isStaff();
+        allow create, update: if isOwner(userId)
+          && request.resource.data.keys().hasOnly(['unlocked', 'unlockedAt']);
+        allow delete: if false;
+      }
+
+      match /progress/{levelId} {
+        allow read: if isOwner(userId) || isStaff();
+        allow create, update: if isOwner(userId)
+          && request.resource.data.keys().hasOnly([
+            'completed', 'progress', 'completedAt', 'firstCompletedAt'
+          ]);
+        allow delete: if false;
+      }
+
+      match /quizScores/{quizId} {
+        allow read: if isOwner(userId) || isStaff();
+        allow create, update: if isOwner(userId)
+          && request.resource.data.keys().hasOnly([
+            'completed', 'passed', 'score', 'totalQuestions', 'earnedXP',
+            'xpEarned', 'stars', 'completedAt', 'percentage', 'attempts',
+            'bestScore', 'lastAttemptAt'
+          ]);
+        allow delete: if false;
+      }
+
+      match /stars/{quizId} {
+        allow read: if isOwner(userId) || isStaff();
+        allow create, update: if isOwner(userId);
+        allow delete: if false;
+      }
+
+      match /levelLocks/{levelId} {
+        allow read: if isOwner(userId) || isStaff();
+        allow create, update: if isOwner(userId);
+        allow delete: if false;
+      }
+
+      match /recentActivity/{activityId} {
+        allow read: if isOwner(userId) || isStaff();
+        allow create, update: if isOwner(userId)
+          && request.resource.data.keys().hasOnly([
+            'type', 'title', 'description', 'timestamp'
+          ]);
+        allow delete: if false;
+      }
+
+      match /inventory/{documentId} {
+        allow read: if isOwner(userId) || isStaff();
+        allow create, update: if isOwner(userId);
+        allow delete: if false;
+      }
+
+      match /achievements/{achievementId} {
+        allow read: if isOwner(userId) || isStaff();
+        allow create, update: if isOwner(userId);
+        allow delete: if false;
+      }
+
+      match /adminData/{documentId} {
+        allow read: if isOwner(userId) || isStaff();
+        allow create, update: if isOwner(userId)
+          && request.resource.data.keys().hasOnly([
+            'accountStatus', 'loginCount', 'lastLogin',
+            'lastKnownDevice', 'lastKnownPlatform'
+          ]);
+        allow write, delete: if isAdmin();
+
+        match /activity/{activityId} {
+          allow read: if isOwner(userId) || isStaff();
+          allow create, update: if isOwner(userId)
+            && request.resource.data.keys().hasOnly([
+              'type', 'description', 'timestamp'
+            ]);
+          allow delete: if false;
+        }
+      }
+
+      match /showcase/{documentId} {
+        allow read: if isOwner(userId) || isStaff();
+        allow create, update: if isOwner(userId);
+        allow delete: if false;
+      }
+
+      match /settings/{documentId} {
+        allow read: if isOwner(userId) || isStaff();
+        allow create, update: if isOwner(userId);
+        allow delete: if false;
+      }
+    }
+
+    match /leaderboard/{userId} {
+      allow read: if isSignedIn();
+      allow create, update: if isOwner(userId)
+        && request.resource.data.keys().hasOnly([
+          'username', 'xp', 'level', 'updatedAt'
+        ]);
+      allow delete: if false;
+    }
+
+    match /announcements/{documentId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isStaff();
+    }
+
+    match /activityLogs/{userId} {
+      allow read: if isOwner(userId) || isStaff();
+      allow create, update: if isOwner(userId);
+      allow delete: if false;
+    }
+
+    match /loginAttempts/{userId} {
+      allow read: if isOwner(userId);
+      allow create, update: if isOwner(userId)
+        && request.resource.data.keys().hasOnly([
+          'failedAttempts', 'lockedUntil', 'lastAttempt'
+        ]);
+      allow delete: if false;
+    }
+
+    match /systemLogs/{logId} {
+      allow read, write: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

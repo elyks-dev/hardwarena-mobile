@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StartupScene.unity
+    guid: d5102c973200248468fbe75885667dd4
+  - enabled: 1
+    path: Assets/Scenes/AuthScenes/SignUpScene.unity
+    guid: c108d64475e7a4c98a5b04ff3e99aa93
+  - enabled: 1
+    path: Assets/Scenes/AuthScenes/ForgotPasswordScene.unity
+    guid: 82a5023ddfe2f4d40a68057abcac8e0a
+  - enabled: 1
+    path: Assets/Scenes/AuthScenes/LoginScene.unity
+    guid: c554fc02d465a4780a581b00db10a513
+  - enabled: 1
+    path: Assets/Scenes/HomeScenes/HomeScene.unity
+    guid: 051678dd189f441f0a1330064c74de08
+  - enabled: 1
+    path: Assets/Scenes/HomeScenes/SettingsScene.unity
+    guid: 67db8efd135de44d2b43badeb6cb2781
+  - enabled: 1
+    path: Assets/Scenes/HomeScenes/BadgesScene.unity
+    guid: 0054fea387cac4c73840fb3d0012d763
+  - enabled: 1
+    path: Assets/Scenes/HomeScenes/ProfileScene.unity
+    guid: 591e6ca80b42245ccb846e110ac9f431
+  - enabled: 1
+    path: Assets/Scenes/LevelsScenes/SelectLevelScene.unity
+    guid: f04df35daa3ea42069520b6e4d875d56
+  - enabled: 1
+    path: Assets/Scenes/HomeScenes/LeaderboardsScene.unity
+    guid: 48ff9eaa9835240858340e80ad243aec
+  - enabled: 1
+    path: Assets/Scenes/HomeScenes/TutorialScene.unity
+    guid: 770e7208aee0240f6a5179514071c135
+  - enabled: 1
+    path: Assets/Scenes/LevelCutScenes/Level1CutScene.unity
+    guid: c36467a4a378d4bca9ccbc8bebd9f3ad
+  - enabled: 1
+    path: Assets/Scenes/LevelsScenes/Level1Scene.unity
+    guid: 4b807c5a79c384a7aab7989a5f2fca11
+  - enabled: 1
+    path: Assets/Scenes/QuizScenes/Quiz1Scene.unity
+    guid: d0f6f14fda2f24933a74fcb97794ded3
+  - enabled: 1
+    path: Assets/Scenes/LevelCutScenes/Level2CutScene.unity
+    guid: 334c1b2d228824a2abe6a4606c1412a2
+  - enabled: 1
+    path: Assets/Scenes/LevelsScenes/Level2Scene.unity
+    guid: e11f01f00184344f09624664b87b7ebd
+  - enabled: 1
+    path: Assets/Scenes/QuizScenes/Quiz2Scene.unity
+    guid: a61ac676d9990416e8d9d41b4be70ce5
+  - enabled: 1
+    path: Assets/Scenes/LevelCutScenes/Level3CutScene.unity
+    guid: f107e670b563e41309fd87e3865e26ef
+  - enabled: 1
+    path: Assets/Scenes/LevelsScenes/Level3Scene.unity
+    guid: aedefd032bc9e46aaa9de5efa20b9d31
+  - enabled: 1
+    path: Assets/Scenes/QuizScenes/Quiz3Scene.unity
+    guid: 15d805e14f9b145878233ca71c2e6449
+  - enabled: 1
+    path: Assets/Scenes/LevelCutScenes/Level4CutScene.unity
+    guid: 2148050d19f7844c2b3f894842af07b3
+  - enabled: 1
+    path: Assets/Scenes/LevelsScenes/Level4Scene.unity
+    guid: 0177eb54a9866469ea5c8b472d6f946e
+  - enabled: 1
+    path: Assets/Scenes/QuizScenes/Quiz4Scene.unity
+    guid: a2ef61ea28ff64a748de8e258a65dd33
+  - enabled: 1
+    path: Assets/Scenes/LevelCutScenes/Level5CutScene.unity
+    guid: ac993087596e94859af6e431df74519c
+  - enabled: 1
+    path: Assets/Scenes/LevelsScenes/Level5Scene.unity
+    guid: ecde013f5c83047879a52b15a9c251d7
+  - enabled: 1
+    path: Assets/Scenes/QuizScenes/Quiz5Scene.unity
+    guid: d5d04ed54a8d4419f944a85f274786d7
+  - enabled: 1
+    path: Assets/Scenes/LevelCutScenes/Level6CutScene.unity
+    guid: f73cd6e1f6f104e49b67b503aef4e90a
+  - enabled: 1
+    path: Assets/Scenes/LevelsScenes/Level6Scene.unity
+    guid: 1168fac425748446c918ffca98b9e303
+  - enabled: 1
+    path: Assets/Scenes/QuizScenes/Quiz6Scene.unity
+    guid: 64b697be516404f92b2ef19a21609a57
+  - enabled: 1
+    path: Assets/Scenes/LevelCutScenes/Level7CutScene.unity
+    guid: fed01a8c1d6924c478f99363234cb0d6
+  - enabled: 1
+    path: Assets/Scenes/LevelsScenes/Level7Scene.unity
+    guid: 9e4598a4b2f53490ab50631dfb17ab95
+  - enabled: 1
+    path: Assets/Scenes/QuizScenes/Quiz7Scene.unity
+    guid: 6cc9526885eb54068b9379a149abcabb
+  - enabled: 1
+    path: Assets/Scenes/LevelCutScenes/Level8CutScene.unity
+    guid: a719090e6bd4e44aa8be87908dece0f0
+  - enabled: 1
+    path: Assets/Scenes/LevelsScenes/Level8Scene.unity
+    guid: 2f3d7493fdf394b15a298deabb2887bf
+  - enabled: 1
+    path: Assets/Scenes/QuizScenes/Quiz8Scene.unity
+    guid: 6e843b5dd8a544973b5bd738d8ab1ce4
+  - enabled: 1
+    path: Assets/Scenes/LevelCutScenes/FinalCutsceneScene.unity
+    guid: 46603740e5c924de08c6d1aca4753fdb
+  m_configObjects:
+    com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
