@@ -587,9 +587,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
-
-'
+  m_text: Modem port
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -2134,7 +2132,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: '7. It is a type of interface that transfers information one bit at a time. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -2934,7 +2932,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
+  m_text: 'Audio port
 
 '
   m_isRightToLeft: 0
@@ -3210,7 +3208,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
+  m_text: 'FireWire port
 
 '
   m_isRightToLeft: 0
@@ -3349,9 +3347,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
-
-'
+  m_text: Power connector
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -4720,9 +4716,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
-
-'
+  m_text: VGA
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -8545,7 +8539,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
+  m_text: 'Bluetooth
 
 '
   m_isRightToLeft: 0
@@ -13166,7 +13160,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
+  m_text: 'Modem port
 
 '
   m_isRightToLeft: 0
@@ -14060,6 +14054,46 @@ MonoBehaviour:
     correctButton: {fileID: 472920337}
     timerTMP: {fileID: 790055637}
     timerSlider: {fileID: 260501545}
+  - screen: {fileID: 63222081}
+    buttonA: {fileID: 1973962551}
+    buttonB: {fileID: 180641215}
+    buttonC: {fileID: 966728511}
+    buttonD: {fileID: 2035810613}
+    correctButton: {fileID: 180641215}
+    timerTMP: {fileID: 893862165}
+    timerSlider: {fileID: 346637247}
+  - screen: {fileID: 2018485214}
+    buttonA: {fileID: 468998475}
+    buttonB: {fileID: 1067831190}
+    buttonC: {fileID: 2073542}
+    buttonD: {fileID: 2093356085}
+    correctButton: {fileID: 1067831190}
+    timerTMP: {fileID: 397993912}
+    timerSlider: {fileID: 410182966}
+  - screen: {fileID: 1061437368}
+    buttonA: {fileID: 635122484}
+    buttonB: {fileID: 1331703748}
+    buttonC: {fileID: 1324524677}
+    buttonD: {fileID: 2014650399}
+    correctButton: {fileID: 1331703748}
+    timerTMP: {fileID: 1274336030}
+    timerSlider: {fileID: 613045156}
+  - screen: {fileID: 791030747}
+    buttonA: {fileID: 618896917}
+    buttonB: {fileID: 497909165}
+    buttonC: {fileID: 1247482803}
+    buttonD: {fileID: 420520207}
+    correctButton: {fileID: 497909165}
+    timerTMP: {fileID: 929619201}
+    timerSlider: {fileID: 584762269}
+  - screen: {fileID: 657048819}
+    buttonA: {fileID: 638058760}
+    buttonB: {fileID: 698922520}
+    buttonC: {fileID: 1272611194}
+    buttonD: {fileID: 2103532527}
+    correctButton: {fileID: 638058760}
+    timerTMP: {fileID: 1172090881}
+    timerSlider: {fileID: 1519272888}
   resultScreen: {fileID: 403737383}
   messageTMP: {fileID: 1746269135}
   scoreTMP: {fileID: 1678873601}
@@ -14905,9 +14939,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
-
-'
+  m_text: USB hub
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -16018,9 +16050,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
-
-'
+  m_text: VGA connector
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -17165,7 +17195,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
+  m_text: 'Parallel port
 
 '
   m_isRightToLeft: 0
@@ -18458,7 +18488,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
+  m_text: 'Ethernet port
 
 '
   m_isRightToLeft: 0
@@ -18807,7 +18837,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: '10. Which device plugs into a USB port and provides multiple USB ports? '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -18944,7 +18974,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
+  m_text: 'Ethernet port
 
 '
   m_isRightToLeft: 0
@@ -19494,7 +19524,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
+  m_text: 'Serial port
 
 '
   m_isRightToLeft: 0
@@ -20917,7 +20947,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: '9. Which port is a special type of serial port that connects the system
+    unit to a musical instrument?
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -21413,9 +21446,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
-
-'
+  m_text: MIDI port
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -22304,7 +22335,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
+  m_text: 'PS/2
 
 '
   m_isRightToLeft: 0
@@ -22937,7 +22968,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: 6. Which port is used by computers with internal modems to connect to the
+    Internet over a telephone line?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -23719,7 +23751,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
+  m_text: 'USB port
 
 '
   m_isRightToLeft: 0
@@ -24406,9 +24438,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
-
-'
+  m_text: MIDI
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -25592,7 +25622,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: 8. Which port is used for scanners and printers?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -26866,9 +26896,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
-
-'
+  m_text: USB port
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -27779,9 +27807,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
-
-'
+  m_text: USB port
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -28908,7 +28934,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
+  m_text: 'VGA port
 
 '
   m_isRightToLeft: 0

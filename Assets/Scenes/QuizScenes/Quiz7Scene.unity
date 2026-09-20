@@ -1305,7 +1305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
+  m_text: 'Firmware
 
 '
   m_isRightToLeft: 0
@@ -1581,9 +1581,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
-
-'
+  m_text: SSD
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -1795,9 +1793,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
-
-'
+  m_text: DVD
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -1934,9 +1930,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
-
-'
+  m_text: RAM
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -5931,7 +5925,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: 6. It is a computer program embedded in a hardware device.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -6068,9 +6062,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
-
-'
+  m_text: HDD
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -6207,7 +6199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
+  m_text: 'DVD
 
 '
   m_isRightToLeft: 0
@@ -7364,7 +7356,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: 10. It is a data storage device that uses solid-state memory to store persistent
+    data.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -8303,9 +8296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
-
-'
+  m_text: CD writer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -9192,9 +9183,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
-
-'
+  m_text: SSD
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -10327,9 +10316,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
-
-'
+  m_text: DVD drive
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -10466,7 +10453,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
+  m_text: 'RAM
 
 '
   m_isRightToLeft: 0
@@ -10725,7 +10712,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: '9. It is a non-volatile storage device that stores digitally encoded data
+    on rapidly rotating platters with magnetic surfaces. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -12701,9 +12689,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
-
-'
+  m_text: DVD
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -13846,6 +13832,46 @@ MonoBehaviour:
     correctButton: {fileID: 472920337}
     timerTMP: {fileID: 790055637}
     timerSlider: {fileID: 260501545}
+  - screen: {fileID: 650645751}
+    buttonA: {fileID: 164324328}
+    buttonB: {fileID: 1072030554}
+    buttonC: {fileID: 1354368456}
+    buttonD: {fileID: 711931257}
+    correctButton: {fileID: 1072030554}
+    timerTMP: {fileID: 238966914}
+    timerSlider: {fileID: 729496873}
+  - screen: {fileID: 252635275}
+    buttonA: {fileID: 218747941}
+    buttonB: {fileID: 1255324346}
+    buttonC: {fileID: 1587657323}
+    buttonD: {fileID: 701817303}
+    correctButton: {fileID: 1587657323}
+    timerTMP: {fileID: 39825277}
+    timerSlider: {fileID: 1575679898}
+  - screen: {fileID: 32662814}
+    buttonA: {fileID: 682133174}
+    buttonB: {fileID: 1725917616}
+    buttonC: {fileID: 326980636}
+    buttonD: {fileID: 871955569}
+    correctButton: {fileID: 1725917616}
+    timerTMP: {fileID: 1406386088}
+    timerSlider: {fileID: 576464651}
+  - screen: {fileID: 1573485061}
+    buttonA: {fileID: 192196467}
+    buttonB: {fileID: 1830300725}
+    buttonC: {fileID: 718033309}
+    buttonD: {fileID: 2096010439}
+    correctButton: {fileID: 718033309}
+    timerTMP: {fileID: 962027429}
+    timerSlider: {fileID: 157491261}
+  - screen: {fileID: 1676392470}
+    buttonA: {fileID: 506019311}
+    buttonB: {fileID: 1663831295}
+    buttonC: {fileID: 1345673890}
+    buttonD: {fileID: 1338214379}
+    correctButton: {fileID: 1663831295}
+    timerTMP: {fileID: 578105947}
+    timerSlider: {fileID: 279230072}
   resultScreen: {fileID: 142648439}
   messageTMP: {fileID: 539754778}
   scoreTMP: {fileID: 1828304689}
@@ -14137,7 +14163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: '8. Which device is used for reading a CD? '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -15395,7 +15421,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
+  m_text: 'Compact disc
 
 '
   m_isRightToLeft: 0
@@ -16183,9 +16209,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
-
-'
+  m_text: Software
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -17332,9 +17356,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
-
-'
+  m_text: Hard disk
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -17471,9 +17493,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
-
-'
+  m_text: Hard disk drive
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -19373,9 +19393,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
-
-'
+  m_text: Floppy disk drive
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -19898,9 +19916,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
-
-'
+  m_text: Floppy disk
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -20668,7 +20684,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: '7. Which is the most common type of removable media according to the module? '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -20805,9 +20821,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
-
-'
+  m_text: Hardware
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -21505,7 +21519,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
+  m_text: 'Compact disc
 
 '
   m_isRightToLeft: 0
@@ -25281,9 +25295,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
-
-'
+  m_text: CD-ROM drive
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}

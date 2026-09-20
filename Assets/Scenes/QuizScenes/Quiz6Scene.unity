@@ -479,9 +479,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
-
-'
+  m_text: Inkjet printer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -828,7 +826,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Laptop
+  m_text: 'Speaker
 
 '
   m_isRightToLeft: 0
@@ -1729,7 +1727,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
+  m_text: 'Joystick
 
 '
   m_isRightToLeft: 0
@@ -3994,7 +3992,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: '6. A computer accepts sound input through a:
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -6168,7 +6168,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: 8. Which output device produces a physical or hard copy of computer-processed
+    data?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -6577,7 +6578,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Scanner
+  m_text: Mouse
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -8697,9 +8698,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
-
-'
+  m_text: Printer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -9162,7 +9161,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
+  m_text: 'Laser printer
 
 '
   m_isRightToLeft: 0
@@ -9301,9 +9300,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
-
-'
+  m_text: Monitor
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -11114,7 +11111,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
+  m_text: 'Plotter
 
 '
   m_isRightToLeft: 0
@@ -11253,7 +11250,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '5. Which output device produces a physical or hard copy of computer data?
+  m_text: '5. Which output device produces a physical or hard copy of computer-processed
+    data?
 
 '
   m_isRightToLeft: 0
@@ -11882,7 +11880,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Monitor
+  m_text: Scanner
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -12019,7 +12017,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tablet
+  m_text: Printer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -12467,7 +12465,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4. Which output device displays processed information on a screen?
+  m_text: 4. Which device captures an object or document and converts it into a digital
+    format?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -12604,7 +12603,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'English
+  m_text: 'Hard copy
 
 '
   m_isRightToLeft: 0
@@ -13049,6 +13048,46 @@ MonoBehaviour:
     correctButton: {fileID: 812246387}
     timerTMP: {fileID: 790055637}
     timerSlider: {fileID: 260501545}
+  - screen: {fileID: 1060400323}
+    buttonA: {fileID: 493426353}
+    buttonB: {fileID: 776227853}
+    buttonC: {fileID: 669108981}
+    buttonD: {fileID: 1088705616}
+    correctButton: {fileID: 776227853}
+    timerTMP: {fileID: 1560915772}
+    timerSlider: {fileID: 1264560532}
+  - screen: {fileID: 59949084}
+    buttonA: {fileID: 1977950547}
+    buttonB: {fileID: 1389947859}
+    buttonC: {fileID: 256761743}
+    buttonD: {fileID: 1022099162}
+    correctButton: {fileID: 1389947859}
+    timerTMP: {fileID: 700559897}
+    timerSlider: {fileID: 293410419}
+  - screen: {fileID: 726506155}
+    buttonA: {fileID: 1776544713}
+    buttonB: {fileID: 1616007342}
+    buttonC: {fileID: 366659337}
+    buttonD: {fileID: 963449265}
+    correctButton: {fileID: 1776544713}
+    timerTMP: {fileID: 1135810141}
+    timerSlider: {fileID: 1357993746}
+  - screen: {fileID: 96042440}
+    buttonA: {fileID: 113049765}
+    buttonB: {fileID: 713569980}
+    buttonC: {fileID: 1260972609}
+    buttonD: {fileID: 1663938588}
+    correctButton: {fileID: 1260972609}
+    timerTMP: {fileID: 771083299}
+    timerSlider: {fileID: 9259525}
+  - screen: {fileID: 1081353310}
+    buttonA: {fileID: 1833618696}
+    buttonB: {fileID: 901927457}
+    buttonC: {fileID: 1333506800}
+    buttonD: {fileID: 1370910749}
+    correctButton: {fileID: 901927457}
+    timerTMP: {fileID: 277613080}
+    timerSlider: {fileID: 1139236108}
   resultScreen: {fileID: 1963771740}
   messageTMP: {fileID: 226971068}
   scoreTMP: {fileID: 692893256}
@@ -14489,9 +14528,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
-
-'
+  m_text: Plotter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -17188,7 +17225,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
+  m_text: 'Speaker
 
 '
   m_isRightToLeft: 0
@@ -17327,7 +17364,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
+  m_text: 'Dot matrix printer
 
 '
   m_isRightToLeft: 0
@@ -17541,7 +17578,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
+  m_text: 'Microphone
 
 '
   m_isRightToLeft: 0
@@ -18301,7 +18338,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
+  m_text: 'Speaker
 
 '
   m_isRightToLeft: 0
@@ -18479,7 +18516,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: '10. Which output device is used to print wide-format materials such as
+    banners and brochures? '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -20679,9 +20717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
-
-'
+  m_text: Mouse
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -21550,9 +21586,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Smartphone
-
-'
+  m_text: Microphone
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -22839,7 +22873,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: '7. What do you call the screen output displayed by a monitor? '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -23201,9 +23235,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Smartphone
-
-'
+  m_text: Monitor
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -25001,9 +25033,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Math
-
-'
+  m_text: Soft copy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -25425,7 +25455,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5. What is the special language that computers understand?
+  m_text: 9. Which type of printer sprays tiny dots of ink onto a surface to form
+    an image?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -25699,7 +25730,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
+  m_text: 'Keyboard
 
 '
   m_isRightToLeft: 0
@@ -25838,7 +25869,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
+  m_text: 'Headset
 
 '
   m_isRightToLeft: 0
@@ -26114,9 +26145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Notebook
-
-'
+  m_text: Barcode Reader
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -26756,9 +26785,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
-
-'
+  m_text: Paper copy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -27940,7 +27967,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
+  m_text: 'Mouse
 
 '
   m_isRightToLeft: 0
@@ -28216,9 +28243,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music
-
-'
+  m_text: Scanner
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -28355,7 +28380,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Laptop
+  m_text: Keyboard
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -28492,7 +28517,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '3. Which device converts a document or picture into a digital format?
+  m_text: '3. Which of the following is a pointing device?
 
 '
   m_isRightToLeft: 0
@@ -28770,9 +28795,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code
-
-'
+  m_text: Print copy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}

@@ -82,8 +82,13 @@ public class QuizManager : MonoBehaviour
     [Tooltip("Document name inside users/{uid}/quizScores")]
     public string quizId = "quiz1";
 
-    [Tooltip("Minimum score required to pass.")]
-    public int passingScore = 3;
+    private int passingScore
+    {
+        get
+        {
+            return Mathf.CeilToInt(questions.Length * 0.75f);
+        }
+    }
 
     private int currentQuestion = 0;
     private int score = 0;
@@ -662,25 +667,26 @@ public class QuizManager : MonoBehaviour
         star2.sprite = noStarSprite;
         star3.sprite = noStarSprite;
 
-        // 5/5 = 3 stars
-        if (score >= 5)
+        float percentage = (float)score / questions.Length;
+
+        // 100% = 3 stars
+        if (percentage >= 1f)
         {
             star1.sprite = starSprite;
             star2.sprite = starSprite;
             star3.sprite = starSprite;
         }
-        // 3–4/5 = 2 stars
-        else if (score >= 3)
+        // 75% or higher = 2 stars
+        else if (percentage >= 0.75f)
         {
             star1.sprite = starSprite;
             star2.sprite = starSprite;
         }
-        // 1–2/5 = 1 star
-        else if (score >= 1)
+        // Below 75% = 1 star
+        else
         {
             star1.sprite = starSprite;
         }
-        // 0/5 = 0 stars
     }
 
 
@@ -731,27 +737,24 @@ public class QuizManager : MonoBehaviour
             bool passed = score >= passingScore;
 
             // Star Rating
-            // 0 correct = 0 stars
-            // 1–2 correct = 1 star
-            // 3–4 correct = 2 stars
-            // 5 correct = 3 stars
-            int stars = 0;
+            // 100% = 3 stars
+            // 75% or higher = 2 stars
+            // Below 75% = 1 star
 
-            if (score >= 5)
+            float percentage = (float)score / questions.Length;
+            int stars;
+
+            if (percentage >= 1f)
             {
                 stars = 3;
             }
-            else if (score >= 3)
+            else if (percentage >= 0.75f)
             {
                 stars = 2;
             }
-            else if (score >= 1)
-            {
-                stars = 1;
-            }
             else
             {
-                stars = 0;
+                stars = 1;
             }
 
             Dictionary<string, object> quizData =
