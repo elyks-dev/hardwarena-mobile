@@ -86,7 +86,7 @@ public class QuizManager : MonoBehaviour
     {
         get
         {
-            return Mathf.CeilToInt(questions.Length * 0.75f);
+            return Mathf.FloorToInt(questions.Length * 0.75f);
         }
     }
 
@@ -662,31 +662,36 @@ public class QuizManager : MonoBehaviour
 
     void UpdateStars()
     {
-        // Default all stars to empty.
         star1.sprite = noStarSprite;
         star2.sprite = noStarSprite;
         star3.sprite = noStarSprite;
 
-        float percentage = (float)score / questions.Length;
+        int stars = 0;
 
-        // 100% = 3 stars
-        if (percentage >= 1f)
+        // 3 Stars = Perfect Score
+        if (score == questions.Length)
         {
+            stars = 3;
+        }
+        // 2 Stars = Passing Score (75% rounded down)
+        else if (score >= passingScore)
+        {
+            stars = 2;
+        }
+        // 1 Star = Any score below passing but above 0
+        else if (score > 0)
+        {
+            stars = 1;
+        }
+
+        if (stars >= 1)
             star1.sprite = starSprite;
+
+        if (stars >= 2)
             star2.sprite = starSprite;
+
+        if (stars >= 3)
             star3.sprite = starSprite;
-        }
-        // 75% or higher = 2 stars
-        else if (percentage >= 0.75f)
-        {
-            star1.sprite = starSprite;
-            star2.sprite = starSprite;
-        }
-        // Below 75% = 1 star
-        else
-        {
-            star1.sprite = starSprite;
-        }
     }
 
 
@@ -736,23 +741,18 @@ public class QuizManager : MonoBehaviour
 
             bool passed = score >= passingScore;
 
-            // Star Rating
-            // 100% = 3 stars
-            // 75% or higher = 2 stars
-            // Below 75% = 1 star
+            // Star Rating (matches UI)
+            int stars = 0;
 
-            float percentage = (float)score / questions.Length;
-            int stars;
-
-            if (percentage >= 1f)
+            if (score == questions.Length)
             {
                 stars = 3;
             }
-            else if (percentage >= 0.75f)
+            else if (score >= passingScore)
             {
                 stars = 2;
             }
-            else
+            else if (score > 0)
             {
                 stars = 1;
             }
@@ -783,30 +783,24 @@ public class QuizManager : MonoBehaviour
             }
 
             await userRef.UpdateAsync(
-            new Dictionary<string, object>()
-            {
-                { "xp", currentXP + earnedXP }
-            });
+                new Dictionary<string, object>()
+                {
+                    { "xp", currentXP + earnedXP }
+                });
 
-        Debug.Log(
-            $"Quiz saved to quizScores/{quizId}. XP awarded: {earnedXP}"
-        );
-
-        // =====================================================
-        // BADGES
-        // =====================================================
-
-        if (BadgeManager.Instance != null)
-        {
-            // Quiz 1 → Brain in Action
-            // All quizzes → Mind Over Matter
-            BadgeManager.Instance.QuizCompleted(quizId);
-
-            // XP-based badges
-            BadgeManager.Instance.CheckXPBadges(
-                currentXP + earnedXP
+            Debug.Log(
+                $"Quiz saved to quizScores/{quizId}. XP awarded: {earnedXP}"
             );
-        }
+
+            // =====================================================
+            // BADGES
+            // =====================================================
+
+            if (BadgeManager.Instance != null)
+            {
+                BadgeManager.Instance.QuizCompleted(quizId);
+                BadgeManager.Instance.CheckXPBadges(currentXP + earnedXP);
+            }
         }
         catch (System.Exception e)
         {

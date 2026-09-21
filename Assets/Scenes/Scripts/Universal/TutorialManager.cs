@@ -186,10 +186,20 @@ public class TutorialManager : MonoBehaviour
             MuteAudioForTutorial();
             UpdateTutorialAudioVolume();
 
-            // Play video
-            videoPlayer.Play();
+            if (!videoPlayer.isPrepared)
+            {
+                videoPlayer.Prepare();
+                return;
+            }
 
-            // Change button to Pause
+            if (videoPlayer.frame >= (long)videoPlayer.frameCount - 1)
+            {
+                videoPlayer.Stop();
+                videoPlayer.frame = 0;
+                videoPlayer.Prepare();
+            }
+
+            videoPlayer.Play();
             SetPauseSprite();
         }
     }
@@ -241,6 +251,12 @@ public class TutorialManager : MonoBehaviour
         ConfigureTutorialAudioOutput();
         UpdateAspectRatio();
         UpdateTutorialAudioVolume();
+
+        if (audioMutedForTutorial && !player.isPlaying)
+        {
+            player.Play();
+            SetPauseSprite();
+        }
     }
 
     // =====================================================
@@ -717,10 +733,16 @@ public class TutorialManager : MonoBehaviour
 
     private void OnTutorialFinished(VideoPlayer player)
     {
-        // Video has reached the end
         RestoreAudioAfterTutorial();
 
         SetPlaySprite();
+
+        // Reset the video so Play starts from the beginning.
+        videoPlayer.Stop();
+        videoPlayer.frame = 0;
+        videoPlayer.Prepare();
+
+        UpdateTutorialAudioVolume();
 
         CompleteTutorial();
     }

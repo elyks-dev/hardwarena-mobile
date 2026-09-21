@@ -1,8 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 using Firebase.Auth;
 using Firebase.Firestore;
 
@@ -17,6 +19,18 @@ public class Level5Manager : MonoBehaviour
 
     [Header("Exit Level Button")]
     public Button exitLevelButton;
+
+    // =====================================================
+    // GAME TIMER
+    // =====================================================
+
+    [Header("Game Timer")]
+    public TMP_Text timerTMP;
+    public float gameTime = 120f;
+
+    [Header("Try Again Popup")]
+    public GameObject tryAgainPopup;
+    public Button tryAgainButton;
 
     // =====================================================
     // DRAGGABLE LABELS
@@ -44,6 +58,14 @@ public class Level5Manager : MonoBehaviour
 
     private int completedLabels = 0;
     private bool levelFinished = false;
+
+    private float currentTime;
+    private bool timerRunning = false;
+
+    // Timer blink
+    private Coroutine timerBlinkRoutine;
+    private Color timerDefaultColor = Color.white;
+    private Color timerWarningColor = Color.red;
 
     // =====================================================
     // FIREBASE
@@ -83,10 +105,19 @@ public class Level5Manager : MonoBehaviour
         if (levelCompletionScreen != null)
             levelCompletionScreen.SetActive(false);
 
+        if (tryAgainPopup != null)
+            tryAgainPopup.SetActive(false);
+
         if (exitLevelButton != null)
         {
             exitLevelButton.onClick.RemoveAllListeners();
             exitLevelButton.onClick.AddListener(ExitLevel);
+        }
+
+        if (tryAgainButton != null)
+        {
+            tryAgainButton.onClick.RemoveAllListeners();
+            tryAgainButton.onClick.AddListener(RestartLevel);
         }
 
         if (AudioManager.Instance != null)
@@ -94,6 +125,74 @@ public class Level5Manager : MonoBehaviour
 
         ApplyVolumeSettings();
         PlayLevelMusic();
+
+        if (timerTMP != null)
+            timerDefaultColor = timerTMP.color;
+
+        StartGameTimer();
+    }
+
+        // =====================================================
+    // GAME TIMER
+    // =====================================================
+
+    private void Update()
+    {
+        if (!timerRunning || levelFinished)
+            return;
+
+        currentTime -= Time.deltaTime;
+
+        if (currentTime <= 0f)
+        {
+            currentTime = 0f;
+            UpdateTimerUI();
+            TimerEnded();
+            return;
+        }
+
+        UpdateTimerUI();
+    }
+
+    private void StartGameTimer()
+    {
+        currentTime = gameTime;
+        timerRunning = true;
+        UpdateTimerUI();
+    }
+
+    private void UpdateTimerUI()
+    {
+        if (timerTMP == null)
+            return;
+
+        int minutes = Mathf.FloorToInt(currentTime / 60f);
+        int seconds = Mathf.FloorToInt(currentTime % 60f);
+
+        timerTMP.text = $"{minutes:00}:{seconds:00}";
+    }
+
+    private void TimerEnded()
+    {
+        if (levelFinished)
+            return;
+
+        timerRunning = false;
+
+        StopLevelMusic();
+
+        if (tryAgainPopup != null)
+            tryAgainPopup.SetActive(true);
+    }
+
+    private void RestartLevel()
+    {
+        StopLevelMusic();
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.ResumeMainMenuMusic();
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     // =====================================================
@@ -139,6 +238,49 @@ public class Level5Manager : MonoBehaviour
         sfxSource.PlayOneShot(wrongSFX);
     }
 
+        // =====================================================
+    // DEDUCT TIME
+    // =====================================================
+
+    public void DeductTime(float seconds)
+    {
+        if (!timerRunning || levelFinished)
+            return;
+
+        currentTime -= seconds;
+
+        if (currentTime < 0f)
+            currentTime = 0f;
+
+        UpdateTimerUI();
+
+        // Blink timer red whenever time is deducted.
+        if (timerBlinkRoutine != null)
+            StopCoroutine(timerBlinkRoutine);
+
+        timerBlinkRoutine = StartCoroutine(BlinkTimerRed());
+
+        if (currentTime <= 0f)
+        {
+            TimerEnded();
+        }
+    }
+
+    private IEnumerator BlinkTimerRed()
+    {
+        if (timerTMP == null)
+            yield break;
+
+        for (int i = 0; i < 3; i++)
+        {
+            timerTMP.color = timerWarningColor;
+            yield return new WaitForSeconds(0.12f);
+
+            timerTMP.color = timerDefaultColor;
+            yield return new WaitForSeconds(0.12f);
+        }
+    }
+
     // =====================================================
     // LABEL COMPLETED
     // =====================================================
@@ -162,6 +304,12 @@ public class Level5Manager : MonoBehaviour
     private void FinishLevel()
     {
         levelFinished = true;
+        timerRunning = false;
+
+        StopLevelMusic();
+
+        if (tryAgainPopup != null)
+            tryAgainPopup.SetActive(false);
 
         if (levelCompletionScreen != null)
             levelCompletionScreen.SetActive(true);
@@ -183,7 +331,7 @@ public class Level5Manager : MonoBehaviour
         SceneManager.LoadScene("SelectLevelScene");
     }
 
-    // =====================================================
+        // =====================================================
     // SAVE LEVEL COMPLETION + XP
     // =====================================================
 
@@ -252,13 +400,8 @@ public class Level5Manager : MonoBehaviour
 
             if (BadgeManager.Instance != null)
             {
-                // Level 5 completed
                 BadgeManager.Instance.LevelCompleted("level5");
-
-                // XP-based badges
-                BadgeManager.Instance.CheckXPBadges(
-                    currentXP + 1000
-                );
+                BadgeManager.Instance.CheckXPBadges(currentXP + 1000);
             }
         }
         catch (System.Exception e)

@@ -49,7 +49,6 @@ public class Level6DragDevice : MonoBehaviour,
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
     private Image image;
-
     private Canvas canvas;
     private Camera uiCamera;
 
@@ -58,7 +57,6 @@ public class Level6DragDevice : MonoBehaviour,
     private Vector3 originalScale;
 
     private bool isCorrect = false;
-
     private Level6Manager manager;
 
     // =====================================================
@@ -71,7 +69,6 @@ public class Level6DragDevice : MonoBehaviour,
         image = GetComponent<Image>();
 
         canvasGroup = GetComponent<CanvasGroup>();
-
         if (canvasGroup == null)
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
 
@@ -99,7 +96,8 @@ public class Level6DragDevice : MonoBehaviour,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (isCorrect) return;
+        if (isCorrect)
+            return;
 
         canvasGroup.blocksRaycasts = false;
         transform.SetAsLastSibling();
@@ -111,10 +109,10 @@ public class Level6DragDevice : MonoBehaviour,
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (isCorrect || canvas == null) return;
+        if (isCorrect || canvas == null)
+            return;
 
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
-
         Vector2 localPointerPosition;
 
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -134,7 +132,8 @@ public class Level6DragDevice : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (isCorrect) return;
+        if (isCorrect)
+            return;
 
         canvasGroup.blocksRaycasts = true;
 
@@ -179,84 +178,56 @@ public class Level6DragDevice : MonoBehaviour,
     }
 
     private IEnumerator CorrectAnimation()
-{
-    if (image != null)
-        image.color = correctColor;
-
-    if (manager != null)
-        manager.PlayCorrectSFX();
-
-    yield return new WaitForSeconds(0.2f);
-
-    RectTransform targetArea =
-        manager.GetDropArea(correctCategory);
-
-    if (targetArea == null)
     {
-        Debug.LogError(
-            "Level6: Correct drop area is not assigned for " +
-            correctCategory
-        );
+        if (image != null)
+            image.color = correctColor;
 
-        ReturnToOriginalPosition();
-        yield break;
+        if (manager != null)
+            manager.PlayCorrectSFX();
+
+        yield return new WaitForSeconds(0.2f);
+
+        RectTransform targetArea =
+            manager.GetDropArea(correctCategory);
+
+        if (targetArea == null)
+        {
+            Debug.LogError(
+                "Level6: Correct drop area is not assigned for " +
+                correctCategory
+            );
+
+            ReturnToOriginalPosition();
+            yield break;
+        }
+
+        // Parent into correct box
+        transform.SetParent(targetArea, false);
+
+        // Center anchors
+        rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+        rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+
+        // Snap to assigned slot
+        rectTransform.anchoredPosition = slotOffset;
+
+        // Keep original scale
+        rectTransform.localScale = originalScale;
+
+        if (image != null)
+            image.color = correctColor;
+
+        // Lock device
+        isCorrect = true;
+        canvasGroup.blocksRaycasts = false;
+
+        if (image != null)
+            image.raycastTarget = false;
+
+        if (manager != null)
+            manager.DevicePlacedCorrectly();
     }
-
-    // =====================================================
-    // PARENT INTO CORRECT POPUP
-    // =====================================================
-
-    transform.SetParent(targetArea, false);
-
-    // =====================================================
-    // RESET ANCHORS / PIVOT
-    // =====================================================
-
-    rectTransform.anchorMin =
-        new Vector2(0.5f, 0.5f);
-
-    rectTransform.anchorMax =
-        new Vector2(0.5f, 0.5f);
-
-    rectTransform.pivot =
-        new Vector2(0.5f, 0.5f);
-
-    // =====================================================
-    // SNAP TO ASSIGNED SLOT
-    // =====================================================
-
-    rectTransform.anchoredPosition =
-        slotOffset;
-
-    // Keep original size.
-    rectTransform.localScale =
-        originalScale;
-
-    // =====================================================
-    // KEEP GREEN
-    // =====================================================
-
-    if (image != null)
-        image.color = correctColor;
-
-    // =====================================================
-    // LOCK DEVICE
-    // =====================================================
-
-    isCorrect = true;
-
-    canvasGroup.blocksRaycasts = false;
-
-    if (image != null)
-        image.raycastTarget = false;
-
-    // =====================================================
-    // INFORM MANAGER
-    // =====================================================
-
-    if (manager != null)
-        manager.DevicePlacedCorrectly();
-}
 
     // =====================================================
     // WRONG PLACEMENT
@@ -265,7 +236,10 @@ public class Level6DragDevice : MonoBehaviour,
     private void WrongPlacement()
     {
         if (manager != null)
+        {
             manager.PlayWrongSFX();
+            manager.DeductTime(5f); // ✅ Deduct 5 seconds + blink timer red
+        }
 
         StartCoroutine(WrongAnimation());
     }
@@ -309,11 +283,11 @@ public class Level6DragDevice : MonoBehaviour,
         rectTransform.localScale = originalScale;
 
         if (image != null)
+        {
             image.color = normalColor;
+            image.raycastTarget = true;
+        }
 
         canvasGroup.blocksRaycasts = true;
-
-        if (image != null)
-            image.raycastTarget = true;
     }
 }

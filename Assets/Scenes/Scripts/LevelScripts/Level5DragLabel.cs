@@ -219,7 +219,10 @@ public class Level5DragLabel : MonoBehaviour,
     private void WrongPlacement()
     {
         if (manager != null)
+        {
             manager.PlayWrongSFX();
+            manager.DeductTime(5f); // Deduct 5 seconds for wrong drop.
+        }
 
         StartCoroutine(WrongAnimation());
     }

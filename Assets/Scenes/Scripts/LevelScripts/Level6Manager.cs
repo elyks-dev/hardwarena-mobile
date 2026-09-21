@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -9,10 +10,6 @@ using Firebase.Firestore;
 
 public class Level6Manager : MonoBehaviour
 {
-    // =====================================================
-    // POPUPS
-    // =====================================================
-
     [Header("Instructions")]
     public GameObject instructionsPopup;
     public Button instructionsButton;
@@ -25,36 +22,23 @@ public class Level6Manager : MonoBehaviour
     public GameObject outputPopup;
     public Button openOutputButton;
 
-    // =====================================================
-    // TIMER
-    // =====================================================
-
     [Header("Timer")]
     public TMP_Text timerTMP;
     public float levelTime = 90f;
 
     private float remainingTime;
     private bool timerRunning = false;
-
-    // =====================================================
-    // LEVEL COMPLETION
-    // =====================================================
+    private Coroutine timerBlinkRoutine;
+    private Color timerDefaultColor = Color.white;
+    private readonly Color timerWarningColor = Color.red;
 
     [Header("Level Completion Screen")]
     public GameObject levelCompletionScreen;
     public Button exitLevelButton;
 
-    // =====================================================
-    // TRY AGAIN POPUP
-    // =====================================================
-
     [Header("Try Again Popup")]
     public GameObject tryAgainPopup;
     public Button tryAgainButton;
-
-    // =====================================================
-    // DEVICES
-    // =====================================================
 
     [Header("Draggable Devices")]
     public Level6DragDevice[] devices;
@@ -62,10 +46,6 @@ public class Level6Manager : MonoBehaviour
     [Header("Universal Drop Areas")]
     public RectTransform inputDropArea;
     public RectTransform outputDropArea;
-
-    // =====================================================
-    // AUDIO
-    // =====================================================
 
     [Header("Audio Sources")]
     public AudioSource bgmSource;
@@ -76,23 +56,11 @@ public class Level6Manager : MonoBehaviour
     public AudioClip correctSFX;
     public AudioClip wrongSFX;
 
-    // =====================================================
-    // FIREBASE
-    // =====================================================
-
     private FirebaseFirestore db;
     private FirebaseAuth auth;
 
-    // =====================================================
-    // INTERNAL
-    // =====================================================
-
     private int completedDevices = 0;
     private bool levelFinished = false;
-
-    // =====================================================
-    // AUDIO EVENTS
-    // =====================================================
 
     private void OnEnable()
     {
@@ -106,10 +74,6 @@ public class Level6Manager : MonoBehaviour
             AudioManager.Instance.OnAudioSettingsChanged -= ApplyVolumeSettings;
     }
 
-    // =====================================================
-    // START
-    // =====================================================
-
     private void Start()
     {
         Time.timeScale = 1f;
@@ -120,25 +84,19 @@ public class Level6Manager : MonoBehaviour
         completedDevices = 0;
         levelFinished = false;
 
-        // Timer
         remainingTime = Mathf.Max(0f, levelTime);
         timerRunning = true;
+
+        if (timerTMP != null)
+            timerDefaultColor = timerTMP.color;
+
         UpdateTimerDisplay();
 
-        if (instructionsPopup != null)
-            instructionsPopup.SetActive(false);
-
-        if (inputPopup != null)
-            inputPopup.SetActive(false);
-
-        if (outputPopup != null)
-            outputPopup.SetActive(false);
-
-        if (levelCompletionScreen != null)
-            levelCompletionScreen.SetActive(false);
-
-        if (tryAgainPopup != null)
-            tryAgainPopup.SetActive(false);
+        if (instructionsPopup != null) instructionsPopup.SetActive(false);
+        if (inputPopup != null) inputPopup.SetActive(false);
+        if (outputPopup != null) outputPopup.SetActive(false);
+        if (levelCompletionScreen != null) levelCompletionScreen.SetActive(false);
+        if (tryAgainPopup != null) tryAgainPopup.SetActive(false);
 
         if (tryAgainButton != null)
         {
@@ -158,10 +116,6 @@ public class Level6Manager : MonoBehaviour
         ApplyVolumeSettings();
         PlayLevelMusic();
     }
-
-    // =====================================================
-    // TIMER UPDATE
-    // =====================================================
 
     private void Update()
     {
@@ -183,8 +137,7 @@ public class Level6Manager : MonoBehaviour
 
     private void UpdateTimerDisplay()
     {
-        if (timerTMP == null)
-            return;
+        if (timerTMP == null) return;
 
         int totalSeconds = Mathf.CeilToInt(remainingTime);
         int minutes = totalSeconds / 60;
@@ -198,9 +151,48 @@ public class Level6Manager : MonoBehaviour
         timerRunning = false;
     }
 
-    // =====================================================
-    // TRY AGAIN POPUP
-    // =====================================================
+    // ========================= PENALTY + RED BLINK =========================
+
+    public void DeductTime(float seconds)
+    {
+        if (!timerRunning || levelFinished)
+            return;
+
+        remainingTime -= seconds;
+
+        if (remainingTime < 0f)
+            remainingTime = 0f;
+
+        UpdateTimerDisplay();
+
+        if (timerBlinkRoutine != null)
+            StopCoroutine(timerBlinkRoutine);
+
+        timerBlinkRoutine = StartCoroutine(BlinkTimerRed());
+
+        if (remainingTime <= 0f)
+            ShowTryAgainPopup();
+    }
+
+    private IEnumerator BlinkTimerRed()
+    {
+        if (timerTMP == null)
+            yield break;
+
+        for (int i = 0; i < 3; i++)
+        {
+            timerTMP.color = timerWarningColor;
+            yield return new WaitForSeconds(0.12f);
+
+            timerTMP.color = timerDefaultColor;
+            yield return new WaitForSeconds(0.12f);
+        }
+
+        timerTMP.color = timerDefaultColor;
+        timerBlinkRoutine = null;
+    }
+
+    // ========================= TRY AGAIN =========================
 
     private void ShowTryAgainPopup()
     {
@@ -211,20 +203,11 @@ public class Level6Manager : MonoBehaviour
 
         StopLevelMusic();
 
-        if (instructionsPopup != null)
-            instructionsPopup.SetActive(false);
-
-        if (inputPopup != null)
-            inputPopup.SetActive(false);
-
-        if (outputPopup != null)
-            outputPopup.SetActive(false);
-
-        if (levelCompletionScreen != null)
-            levelCompletionScreen.SetActive(false);
-
-        if (tryAgainPopup != null)
-            tryAgainPopup.SetActive(true);
+        if (instructionsPopup != null) instructionsPopup.SetActive(false);
+        if (inputPopup != null) inputPopup.SetActive(false);
+        if (outputPopup != null) outputPopup.SetActive(false);
+        if (levelCompletionScreen != null) levelCompletionScreen.SetActive(false);
+        if (tryAgainPopup != null) tryAgainPopup.SetActive(true);
     }
 
     public void RestartLevel()
@@ -244,9 +227,7 @@ public class Level6Manager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // =====================================================
-    // AUDIO METHODS
-    // =====================================================
+    // ========================= AUDIO =========================
 
     private void ApplyVolumeSettings()
     {
@@ -258,8 +239,7 @@ public class Level6Manager : MonoBehaviour
 
     public void PlayLevelMusic()
     {
-        if (bgmSource == null || level6BGMusic == null)
-            return;
+        if (bgmSource == null || level6BGMusic == null) return;
 
         if (bgmSource.clip == level6BGMusic && bgmSource.isPlaying)
             return;
@@ -277,23 +257,17 @@ public class Level6Manager : MonoBehaviour
 
     public void PlayCorrectSFX()
     {
-        if (sfxSource == null || correctSFX == null)
-            return;
-
-        sfxSource.PlayOneShot(correctSFX);
+        if (sfxSource != null && correctSFX != null)
+            sfxSource.PlayOneShot(correctSFX);
     }
 
     public void PlayWrongSFX()
     {
-        if (sfxSource == null || wrongSFX == null)
-            return;
-
-        sfxSource.PlayOneShot(wrongSFX);
+        if (sfxSource != null && wrongSFX != null)
+            sfxSource.PlayOneShot(wrongSFX);
     }
 
-    // =====================================================
-    // INSTRUCTIONS
-    // =====================================================
+    // ========================= POPUPS =========================
 
     public void OpenInstructions()
     {
@@ -307,10 +281,6 @@ public class Level6Manager : MonoBehaviour
         instructionsButton.gameObject.SetActive(true);
     }
 
-    // =====================================================
-    // INPUT POPUP
-    // =====================================================
-
     public void OpenInputPopup()
     {
         inputPopup.SetActive(true);
@@ -322,10 +292,6 @@ public class Level6Manager : MonoBehaviour
         inputPopup.SetActive(false);
         openInputButton.gameObject.SetActive(true);
     }
-
-    // =====================================================
-    // OUTPUT POPUP
-    // =====================================================
 
     public void OpenOutputPopup()
     {
@@ -339,9 +305,7 @@ public class Level6Manager : MonoBehaviour
         openOutputButton.gameObject.SetActive(true);
     }
 
-    // =====================================================
-    // GET DROP AREA
-    // =====================================================
+    // ========================= DROP AREAS =========================
 
     public RectTransform GetDropArea(Level6DragDevice.DeviceCategory category)
     {
@@ -349,10 +313,6 @@ public class Level6Manager : MonoBehaviour
             ? inputDropArea
             : outputDropArea;
     }
-
-    // =====================================================
-    // DEVICE COMPLETED
-    // =====================================================
 
     public void DevicePlacedCorrectly()
     {
@@ -362,27 +322,22 @@ public class Level6Manager : MonoBehaviour
         completedDevices++;
 
         if (devices != null && completedDevices >= devices.Length)
-        {
             FinishLevel();
-        }
     }
-
-    // =====================================================
-    // FINISH LEVEL
-    // =====================================================
 
     private void FinishLevel()
     {
         levelFinished = true;
         StopTimer();
 
+        if (tryAgainPopup != null)
+            tryAgainPopup.SetActive(false);
+
         if (levelCompletionScreen != null)
             levelCompletionScreen.SetActive(true);
     }
 
-    // =====================================================
-    // EXIT LEVEL
-    // =====================================================
+    // ========================= EXIT =========================
 
     public async void ExitLevel()
     {
@@ -397,9 +352,7 @@ public class Level6Manager : MonoBehaviour
         SceneManager.LoadScene("SelectLevelScene");
     }
 
-    // =====================================================
-    // FIREBASE SAVE + XP
-    // =====================================================
+    // ========================= FIREBASE =========================
 
     private async Task SaveLevelCompletion()
     {
