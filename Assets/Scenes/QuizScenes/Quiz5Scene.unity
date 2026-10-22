@@ -441,7 +441,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 130.00003}
+  m_AnchoredPosition: {x: 0, y: 112}
   m_SizeDelta: {x: 340, y: 279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &48302077
@@ -464,9 +464,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 6605267188334319497, guid: 925cedd8741804cc5baee524f9ef0335, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4176,9 +4176,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 5715942325931335677, guid: 5244c27f5da854563ad3afd6787c8b57, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -6988,10 +6988,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '5. Which device functions like a computer while also serving as a mobile
-    phone?
-
-'
+  m_text: 5. It is a cell phone that function is like a computer.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -7931,8 +7928,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4. Which device is larger than a smartphone but smaller than a notebook
-    computer?
+  m_text: '4. It is like a mobile device but bigger than smartphone and smaller than
+    notebook computer.
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -8181,7 +8180,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 130.00003}
+  m_AnchoredPosition: {x: 0, y: 124}
   m_SizeDelta: {x: 340, y: 279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &879506417
@@ -8204,9 +8203,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: -1803845828464903431, guid: 3c668c4ecb38d457591cb13d151c5cbd, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -8332,7 +8331,6 @@ MonoBehaviour:
   questionTime: 60
   xpPerCorrect: 20
   quizId: quiz5
-  passingScore: 3
 --- !u!4 &890515897
 Transform:
   m_ObjectHideFlags: 0
@@ -11501,9 +11499,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: -8006958544109390896, guid: 04673c29dfbbd4e8ca43ccd40437d9b6, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -15720,7 +15718,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1. Which computer is generally used as a personal processing system?
+  m_text: 1. It is generally the purpose of processing system functionally.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -15857,7 +15855,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2. Which of the following is NOT an example of a microcomputer?
+  m_text: 2. The following are the examples of microcomputer except one.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -16698,9 +16696,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d64e2e77b24c3430b9f9a8c3176fd2c9, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -16773,9 +16771,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: -4864186972590325491, guid: 4dc6a6353124c41e78cc25197f9f89bd, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -18346,10 +18344,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '3. Which type of computer is designed for one person and usually stays
-    in one location?
-
-'
+  m_text: 3. This computer is a personal computer and used one location and one-person
+    work at a time.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}

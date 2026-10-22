@@ -290,7 +290,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 130.00003}
+  m_AnchoredPosition: {x: 0, y: 112}
   m_SizeDelta: {x: 340, y: 279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &18669828
@@ -313,9 +313,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 1408349262648415785, guid: f30579c4582f744918658f8524a3c508, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -464,9 +464,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: -8150576997331422241, guid: a3c55059b6be64d7499db5f35fc88423, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -5906,9 +5906,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 6725335699077222945, guid: 9cec6bb4eb18c4289806e404f03f8cc3, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -10033,8 +10033,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '5. Which computer is inexpensive, smaller than a laptop, and designed
-    mainly for internet use?
+  m_text: '5. It falls in the category of laptops, but is inexpensive and smaller
+    in size.
 
 '
   m_isRightToLeft: 0
@@ -11258,10 +11258,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '4. Which type of computer lies between a mainframe and a microcomputer
-    in size and capability?
-
-'
+  m_text: 4. It lies in between mainframe and microcomputer.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -11533,9 +11530,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: -5258833475987715439, guid: d3044e8fddbfa459b8996ace153b0614, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -11650,7 +11647,7 @@ MonoBehaviour:
     buttonB: {fileID: 1296725284}
     buttonC: {fileID: 740538468}
     buttonD: {fileID: 126421167}
-    correctButton: {fileID: 977133887}
+    correctButton: {fileID: 740538468}
     timerTMP: {fileID: 1159889911}
     timerSlider: {fileID: 1492317460}
   - screen: {fileID: 333857765}
@@ -11658,7 +11655,7 @@ MonoBehaviour:
     buttonB: {fileID: 1903629413}
     buttonC: {fileID: 1677511227}
     buttonD: {fileID: 566304680}
-    correctButton: {fileID: 566304680}
+    correctButton: {fileID: 1903629413}
     timerTMP: {fileID: 1921319613}
     timerSlider: {fileID: 314122494}
   resultScreen: {fileID: 1114233590}
@@ -11685,7 +11682,6 @@ MonoBehaviour:
   questionTime: 60
   xpPerCorrect: 20
   quizId: quiz4
-  passingScore: 3
 --- !u!4 &890515897
 Transform:
   m_ObjectHideFlags: 0
@@ -14687,7 +14683,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 130.00003}
+  m_AnchoredPosition: {x: 0, y: 112}
   m_SizeDelta: {x: 340, y: 279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1125985985
@@ -14710,9 +14706,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: -1219817639667857174, guid: 73b1b185dbaea4d99aa68bee51a78a62, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -14922,7 +14918,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 9. A small, inexpensive computer with a microprocessor as its CPU.
+  m_text: 9. A handheld computer known as a palmtop.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -16415,7 +16411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 130.00003}
+  m_AnchoredPosition: {x: 0, y: 106}
   m_SizeDelta: {x: 340, y: 279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1245980932
@@ -16438,9 +16434,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: -3238038163959499788, guid: e240d8f65dc074c269d5db78bd099f27, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -20575,9 +20571,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: -7118864855508676837, guid: 994774ccfc4194832bfc74a79818f5f9, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -21988,8 +21984,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1. Which type of computer is designed to provide services to client machines
-    in a computer network?
+  m_text: '1. It is designed to provide services to client machines in a computer
+    network. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -22207,8 +22203,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2. Which type of computer uses continuously changing physical phenomena
-    to process data?
+  m_text: 2. A form of computer that uses continuously changeable aspects of physical
+    phenomena.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -23010,7 +23006,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '6. Mobile computers that are very handy and use the touchscreen technology
+  m_text: '6. Mobile computers that are very handy and use the touchscreen technology.
 
 '
   m_isRightToLeft: 0
@@ -23149,9 +23145,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 1312734844463431912, guid: 99081a449e5484ebea2a6f8a86e0f398, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -23224,9 +23220,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: -5277563790265070767, guid: a83d6c40527d64b12bd843abcc3556c2, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -25994,7 +25990,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3. Which computer combines the features of analog and digital computers?
+  m_text: 3. It exhibits features of analog and digital computer.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}

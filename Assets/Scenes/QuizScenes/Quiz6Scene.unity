@@ -616,9 +616,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4c769831869e349d28a5ff3296bf528b, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2230,7 +2230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Smartphone
+  m_text: Microphone
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -2911,7 +2911,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 130.00003}
+  m_AnchoredPosition: {x: 0, y: 124}
   m_SizeDelta: {x: 340, y: 279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &240352046
@@ -2934,9 +2934,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 9052009545188518436, guid: d2ace87d90a1a47538caa35392e63c82, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4794,7 +4794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 130.00003}
+  m_AnchoredPosition: {x: 0, y: 112}
   m_SizeDelta: {x: 340, y: 279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &351765728
@@ -4817,9 +4817,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 50097516705991654, guid: 4aeaf4dd09bbc4b8e92bf64628a4576b, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -6715,9 +6715,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 2443451018532027844, guid: 82418ac7c281441fdaae48824ed6a816, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -8066,9 +8066,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ea4107940884406494a1dd1912029d7, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -8351,9 +8351,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 6556731982171357238, guid: 726253014687a42cd9544fad9359f6e8, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -9572,7 +9572,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Printer
+  m_text: Keyboard
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -11250,8 +11250,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '5. Which output device produces a physical or hard copy of computer-processed
-    data?
+  m_text: '5. Which device is used to display processed data on a screen?
 
 '
   m_isRightToLeft: 0
@@ -12952,9 +12951,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: -9155275520581837022, guid: 19bfc254c20ad41c6af01668223191d8, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -13112,7 +13111,6 @@ MonoBehaviour:
   questionTime: 60
   xpPerCorrect: 20
   quizId: quiz6
-  passingScore: 3
 --- !u!4 &890515897
 Transform:
   m_ObjectHideFlags: 0
@@ -13516,9 +13514,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Tablet
-
-'
+  m_text: Scanner
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -18879,7 +18875,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62916d5c7a3654335a24487f64ab25b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19093,9 +19089,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Laptop
-
-'
+  m_text: Monitor
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -23918,8 +23912,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1. Which hardware components are used to enter data and instructions into
-    a computer?
+  m_text: 1. These are hardware components used for entering data and instructions
+    into the computer.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
   m_sharedMaterial: {fileID: 1551533306427723543, guid: dd13225b170af4e48a9091532fa00f5f, type: 2}
@@ -25282,7 +25276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 130.00003}
+  m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 340, y: 279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1842488736
@@ -25305,9 +25299,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db1f35a2a7ce9406cb5f33bf3c6df59d, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -25357,7 +25351,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 130.00003}
+  m_AnchoredPosition: {x: 0, y: 112}
   m_SizeDelta: {x: 340, y: 279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1843967740
@@ -25380,9 +25374,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7484711793419527102, guid: fbfad43be9a84406081a7986f0f2c5ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d4f2f979173d4ec4adbea30f41a8c12, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

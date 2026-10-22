@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
@@ -26,15 +27,31 @@ public class SignupManager : MonoBehaviour
     [Header("Password Icons")]
     public Image passwordEyeImage;
     public Image confirmPasswordEyeImage;
-
     public Sprite showPasswordIcon;
     public Sprite hidePasswordIcon;
+
+    [Header("Grade Level Dropdown")]
+    public TMP_Text gradeLevelText;
+    public Button dropdownButton;
+    public GameObject gradeLevelDropdownObject;
+    public Button grade7Button;
+    public Button grade8Button;
+    public Button grade9Button;
+    public Button grade10Button;
+
+    [Header("Dropdown Arrow Sprites")]
+    public Image dropdownArrowImage;
+    public Sprite dropdownArrowDownSprite;
+    public Sprite dropdownArrowUpSprite;
+
+    private string selectedGradeLevel = "";
 
     private FirebaseAuth auth;
     private FirebaseFirestore db;
 
     private bool passwordVisible = false;
     private bool confirmPasswordVisible = false;
+    private bool isSigningUp = false;
 
     void Start()
     {
@@ -48,16 +65,97 @@ public class SignupManager : MonoBehaviour
         passwordInput.ForceLabelUpdate();
         confirmPasswordInput.ForceLabelUpdate();
 
-        // Default eye icon.
+        // Set default password eye icons.
         passwordEyeImage.sprite = showPasswordIcon;
         confirmPasswordEyeImage.sprite = showPasswordIcon;
 
+        // Connect signup and password buttons.
         signupButton.onClick.AddListener(SignUp);
         passwordEyeButton.onClick.AddListener(TogglePassword);
         confirmPasswordEyeButton.onClick.AddListener(ToggleConfirmPassword);
 
-        // Press Enter to Sign Up.
+        // Press Enter to sign up.
         confirmPasswordInput.onSubmit.AddListener(delegate { SignUp(); });
+
+        // Initialize the grade dropdown.
+        SetupGradeLevelDropdown();
+    }
+
+    // =========================================================
+    // GRADE LEVEL DROPDOWN
+    // =========================================================
+
+    void SetupGradeLevelDropdown()
+    {
+        if (gradeLevelDropdownObject != null)
+            gradeLevelDropdownObject.SetActive(false);
+
+        if (gradeLevelText != null)
+            gradeLevelText.text = "Grade Level";
+
+        // Default arrow points down.
+        if (dropdownArrowImage != null)
+            dropdownArrowImage.sprite = dropdownArrowDownSprite;
+
+        // Connect dropdown toggle button.
+        if (dropdownButton != null)
+            dropdownButton.onClick.AddListener(ToggleGradeDropdown);
+
+        // Store lowercase values for Firestore.
+        // Display normal grade names in the UI.
+        if (grade7Button != null)
+            grade7Button.onClick.AddListener(
+                delegate { SelectGradeLevel("grade7", "Grade 7"); }
+            );
+
+        if (grade8Button != null)
+            grade8Button.onClick.AddListener(
+                delegate { SelectGradeLevel("grade8", "Grade 8"); }
+            );
+
+        if (grade9Button != null)
+            grade9Button.onClick.AddListener(
+                delegate { SelectGradeLevel("grade9", "Grade 9"); }
+            );
+
+        if (grade10Button != null)
+            grade10Button.onClick.AddListener(
+                delegate { SelectGradeLevel("grade10", "Grade 10"); }
+            );
+    }
+
+    void ToggleGradeDropdown()
+    {
+        if (gradeLevelDropdownObject == null)
+            return;
+
+        bool isOpening = !gradeLevelDropdownObject.activeSelf;
+        gradeLevelDropdownObject.SetActive(isOpening);
+
+        // Change arrow based on dropdown state.
+        if (dropdownArrowImage != null)
+        {
+            dropdownArrowImage.sprite = isOpening
+                ? dropdownArrowUpSprite
+                : dropdownArrowDownSprite;
+        }
+    }
+
+    void SelectGradeLevel(string databaseValue, string displayText)
+    {
+        selectedGradeLevel = databaseValue;
+
+        // Update the displayed TMP text.
+        if (gradeLevelText != null)
+            gradeLevelText.text = displayText;
+
+        // Close the dropdown after selection.
+        if (gradeLevelDropdownObject != null)
+            gradeLevelDropdownObject.SetActive(false);
+
+        // Reset arrow to down.
+        if (dropdownArrowImage != null)
+            dropdownArrowImage.sprite = dropdownArrowDownSprite;
     }
 
     // =========================================================
@@ -74,8 +172,9 @@ public class SignupManager : MonoBehaviour
 
         passwordInput.ForceLabelUpdate();
 
-        // Change eye icon.
-        passwordEyeImage.sprite = passwordVisible ? hidePasswordIcon : showPasswordIcon;
+        passwordEyeImage.sprite = passwordVisible
+            ? hidePasswordIcon
+            : showPasswordIcon;
     }
 
     void ToggleConfirmPassword()
@@ -88,8 +187,9 @@ public class SignupManager : MonoBehaviour
 
         confirmPasswordInput.ForceLabelUpdate();
 
-        // Change eye icon.
-        confirmPasswordEyeImage.sprite = confirmPasswordVisible ? hidePasswordIcon : showPasswordIcon;
+        confirmPasswordEyeImage.sprite = confirmPasswordVisible
+            ? hidePasswordIcon
+            : showPasswordIcon;
     }
 
     // =========================================================
@@ -138,72 +238,105 @@ public class SignupManager : MonoBehaviour
     // =========================================================
 
     void SignUp()
-{
-    string fullName = fullNameInput.text.Trim();
-    string username = usernameInput.text.Trim();
-    string email = emailInput.text.Trim().ToLower();
-    string password = passwordInput.text;
-    string confirmPassword = confirmPasswordInput.text;
-
-    if (string.IsNullOrEmpty(fullName) ||
-        string.IsNullOrEmpty(username) ||
-        string.IsNullOrEmpty(email) ||
-        string.IsNullOrEmpty(password) ||
-        string.IsNullOrEmpty(confirmPassword))
     {
-        ShowError(
-            "INCOMPLETE FORM",
-            "Please complete all required fields."
+        if (isSigningUp)
+            return;
+
+        string fullName = fullNameInput.text.Trim();
+        string username = usernameInput.text.Trim();
+        string email = emailInput.text.Trim().ToLowerInvariant();
+        string password = passwordInput.text;
+        string confirmPassword = confirmPasswordInput.text;
+
+        // Validate required fields.
+        if (string.IsNullOrEmpty(fullName) ||
+            string.IsNullOrEmpty(username) ||
+            string.IsNullOrEmpty(email) ||
+            string.IsNullOrEmpty(password) ||
+            string.IsNullOrEmpty(confirmPassword))
+        {
+            ShowError(
+                "INCOMPLETE FORM",
+                "Please complete all required fields."
+            );
+            return;
+        }
+
+        // Require a grade selection.
+        // This popup does not clear the password fields.
+        if (string.IsNullOrEmpty(selectedGradeLevel))
+        {
+            AuthPopupManager.Instance.ShowPopup(
+                "GRADE LEVEL REQUIRED",
+                "Please select your grade level.",
+                "OK"
+            );
+            return;
+        }
+
+        // Validate email format.
+        if (!IsValidEmail(email))
+        {
+            ShowError(
+                "INVALID EMAIL",
+                "Please enter a valid email address."
+            );
+            return;
+        }
+
+        // Validate matching passwords.
+        if (password != confirmPassword)
+        {
+            ShowError(
+                "PASSWORD MISMATCH",
+                "The passwords you entered do not match."
+            );
+            return;
+        }
+
+        // Validate password strength.
+        if (!IsStrongPassword(password))
+        {
+            ShowError(
+                "WEAK PASSWORD",
+                "Password must contain at least 8 characters, including an uppercase letter, a lowercase letter, a number, and a special character."
+            );
+            return;
+        }
+
+        // Prevent repeated signup attempts.
+        isSigningUp = true;
+
+        if (signupButton != null)
+            signupButton.interactable = false;
+
+        CreateFirebaseAccount(
+            fullName,
+            username,
+            email,
+            password,
+            selectedGradeLevel
         );
-        return;
     }
-
-    if (!IsValidEmail(email))
-    {
-        ShowError(
-            "INVALID EMAIL",
-            "Please enter a valid email address."
-        );
-        return;
-    }
-
-    if (password != confirmPassword)
-    {
-        ShowError(
-            "PASSWORD MISMATCH",
-            "The passwords you entered do not match."
-        );
-        return;
-    }
-
-    if (!IsStrongPassword(password))
-    {
-        ShowError(
-            "WEAK PASSWORD",
-            "Password must contain at least 8 characters, including an uppercase letter, a lowercase letter, a number, and a special character."
-        );
-        return;
-    }
-
-    signupButton.interactable = false;
-
-    // TEMPORARY: Skip username verification and create the account immediately.
-    CreateFirebaseAccount(fullName, username, email, password);
-}
 
     // =========================================================
     // CREATE FIREBASE ACCOUNT
     // =========================================================
 
-    void CreateFirebaseAccount(string fullName, string username, string email, string password)
+    void CreateFirebaseAccount(
+        string fullName,
+        string username,
+        string email,
+        string password,
+        string gradeLevel)
     {
         auth.CreateUserWithEmailAndPasswordAsync(email, password)
             .ContinueWithOnMainThread(task =>
             {
-                signupButton.interactable = true;
-
                 if (task.IsCanceled)
                 {
+                    ResetSignupButton();
+
                     ShowError(
                         "SIGN UP CANCELLED",
                         "The signup attempt was cancelled."
@@ -213,24 +346,46 @@ public class SignupManager : MonoBehaviour
 
                 if (task.IsFaulted)
                 {
+                    ResetSignupButton();
                     HandleSignupError(task.Exception);
                     return;
                 }
 
                 FirebaseUser user = task.Result.User;
 
-                Dictionary<string, object> userData = new Dictionary<string, object>()
+                if (user == null)
                 {
-                    { "fullName", fullName },
-                    { "username", username },
-                    { "email", email },
-                    { "role", "student" },
-                    { "xp", 0 },
-                    { "level", 1 },
-                    { "profileImage", "Otto" },   // Default avatar
-                    { "createdAt", Timestamp.GetCurrentTimestamp() }
-                };
+                    ResetSignupButton();
 
+                    ShowError(
+                        "SIGN UP FAILED",
+                        "Unable to create your account. Please try again."
+                    );
+                    return;
+                }
+
+                // Prepare the user's Firestore profile.
+                Dictionary<string, object> userData =
+                    new Dictionary<string, object>()
+                    {
+                        { "fullName", fullName },
+                        { "username", username },
+                        { "email", email },
+                        { "role", "student" },
+                        { "gradeLevel", gradeLevel },
+                        { "xp", 0 },
+                        { "level", 1 },
+                        { "profileImage", "Otto" },
+                        { "createdAt", Timestamp.GetCurrentTimestamp() }
+                    };
+
+                Debug.Log(
+                    "Attempting to save Firestore profile for UID: " +
+                    user.UserId +
+                    ", gradeLevel: " + gradeLevel
+                );
+
+                // Save profile to Firestore.
                 db.Collection("users")
                     .Document(user.UserId)
                     .SetAsync(userData)
@@ -238,19 +393,39 @@ public class SignupManager : MonoBehaviour
                     {
                         if (saveTask.IsCanceled || saveTask.IsFaulted)
                         {
+                            Debug.LogError(
+                                "Firestore profile save failed: " +
+                                (saveTask.Exception != null
+                                    ? saveTask.Exception.ToString()
+                                    : "Task was canceled without an exception.")
+                            );
+
+                            auth.SignOut();
+                            ResetSignupButton();
+
                             ShowError(
                                 "PROFILE ERROR",
-                                "Your account was created, but your profile could not be saved."
+                                "Your account was created, but your profile could not be saved. Check the Unity Console for details."
                             );
                             return;
                         }
 
+                        Debug.Log(
+                            "Firestore profile saved successfully for UID: " +
+                            user.UserId
+                        );
+
+                        // Send email verification.
                         user.SendEmailVerificationAsync()
                             .ContinueWithOnMainThread(emailTask =>
                             {
+                                // Sign out after attempting verification.
                                 auth.SignOut();
+                                ResetSignupButton();
 
-                                if (emailTask.IsCompleted && !emailTask.IsFaulted)
+                                if (emailTask.IsCompleted &&
+                                    !emailTask.IsCanceled &&
+                                    !emailTask.IsFaulted)
                                 {
                                     AuthPopupManager.Instance.ShowPopup(
                                         "VERIFY YOUR EMAIL",
@@ -259,10 +434,18 @@ public class SignupManager : MonoBehaviour
                                         () =>
                                         {
                                             SceneManager.LoadScene("LoginScene");
-                                        });
+                                        }
+                                    );
                                 }
                                 else
                                 {
+                                    Debug.LogError(
+                                        "Verification email failed: " +
+                                        (emailTask.Exception != null
+                                            ? emailTask.Exception.ToString()
+                                            : "No exception details available.")
+                                    );
+
                                     AuthPopupManager.Instance.ShowPopup(
                                         "VERIFICATION EMAIL FAILED",
                                         "Your account was created, but we couldn't send the verification email. Please try logging in later to resend it.",
@@ -270,11 +453,20 @@ public class SignupManager : MonoBehaviour
                                         () =>
                                         {
                                             SceneManager.LoadScene("LoginScene");
-                                        });
+                                        }
+                                    );
                                 }
                             });
                     });
             });
+    }
+
+    void ResetSignupButton()
+    {
+        isSigningUp = false;
+
+        if (signupButton != null)
+            signupButton.interactable = true;
     }
 
     // =========================================================
@@ -285,12 +477,15 @@ public class SignupManager : MonoBehaviour
     {
         AuthError? errorCode = null;
 
-        foreach (var ex in exception.Flatten().InnerExceptions)
+        if (exception != null)
         {
-            if (ex is FirebaseException firebaseEx)
+            foreach (var ex in exception.Flatten().InnerExceptions)
             {
-                errorCode = (AuthError)firebaseEx.ErrorCode;
-                break;
+                if (ex is FirebaseException firebaseEx)
+                {
+                    errorCode = (AuthError)firebaseEx.ErrorCode;
+                    break;
+                }
             }
         }
 
@@ -346,11 +541,11 @@ public class SignupManager : MonoBehaviour
 
     void ShowError(string title, string message)
     {
-        // Clear password fields after an error.
+        // Clear password fields after a validation or signup error.
         passwordInput.text = "";
         confirmPasswordInput.text = "";
 
-        // Reset to hidden state.
+        // Reset password visibility.
         passwordVisible = false;
         confirmPasswordVisible = false;
 
