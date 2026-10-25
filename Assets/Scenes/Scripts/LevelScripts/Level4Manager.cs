@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,12 +11,81 @@ using Firebase.Firestore;
 public class Level4Manager : MonoBehaviour
 {
     // =========================================================
-    // INTRO SCREEN
+    // GAME SCREEN
     // =========================================================
 
-    [Header("Intro Screen")]
-    public GameObject introScreen;
-    public Button introNextButton;
+    [Header("Game Screen (optional root of dialogue, next button and computer buttons)")]
+    public GameObject gameScreen;
+
+    // =========================================================
+    // DIALOGUE
+    // =========================================================
+
+    [Header("Dialogue")]
+    public TMP_Text dialogueTMP;
+
+    [TextArea(3, 8)]
+    public string instructionMessage;
+
+    public Button nextButton;
+
+    [Header("Next Button Text")]
+    [Tooltip("Text inside the next button. Found automatically if left empty.")]
+    public TMP_Text nextButtonText;
+    public string startLabel = "TAP TO START";
+    public string nextLabel = "TAP TO NEXT";
+    public string finishLabel = "TAP TO FINISH";
+
+    [Header("Cover Image")]
+    [Tooltip("Covers the whole page except the dialogue and next button. Shown at the start and again on the finish step.")]
+    public GameObject coverImage;
+
+    // =========================================================
+    // QUESTIONS
+    // =========================================================
+
+    [System.Serializable]
+    public class QuestionData
+    {
+        [Tooltip("The computer-type button that is the correct answer for this question.")]
+        public Button button;
+
+        [TextArea(2, 6)]
+        public string dialogue;
+
+        [TextArea(2, 6)]
+        public string wrongDialogue;
+
+        [TextArea(2, 6)]
+        public string correctDialogue;
+    }
+
+    [Header("Questions (in order)")]
+    public List<QuestionData> questions = new List<QuestionData>();
+
+    [Header("Extra Buttons (optional wrong-answer decoys)")]
+    public List<Button> decoyButtons = new List<Button>();
+
+    [Header("Button Feedback")]
+    public Color correctColor = Color.green;
+    public Color wrongColor = Color.red;
+    public Color defaultColor = Color.white;
+    public int blinkCount = 3;
+    public float blinkInterval = 0.2f;
+
+    private enum GameState
+    {
+        Instruction,
+        Question,
+        Answered,
+        Finished
+    }
+
+    private GameState state = GameState.Instruction;
+    private int currentQuestionIndex = 0;
+
+    private readonly HashSet<Button> solvedButtons = new HashSet<Button>();
+    private readonly Dictionary<Button, Coroutine> blinkRoutines = new Dictionary<Button, Coroutine>();
 
     // =========================================================
     // TIMER
@@ -24,49 +94,16 @@ public class Level4Manager : MonoBehaviour
     [Header("Timer")]
     public TMP_Text timerTMP;
     public float levelTime = 90f;
+    public float wrongAnswerPenalty = 5f;
+
+    [Tooltip("How long the timer blinks red after a deduction.")]
+    public float timerBlinkDuration = 0.4f;
+
+    private Color timerOriginalColor;
+    private Coroutine timerBlinkRoutine;
 
     private float remainingTime;
     private bool timerRunning = false;
-
-    // =========================================================
-    // QUESTION DATA
-    // =========================================================
-
-    public enum CorrectChoice
-    {
-        Choice1,
-        Choice2,
-        Choice3
-    }
-
-    [System.Serializable]
-    public class QuestionData
-    {
-        [Header("Question Screen")]
-        public GameObject questionScreen;
-
-        [Header("Text Objects")]
-        public TMP_Text questionTMP;
-        public TMP_Text correctTMP;
-        public TMP_Text incorrectTMP;
-
-        [Header("Choice Buttons")]
-        public Button choiceButton1;
-        public Button choiceButton2;
-        public Button choiceButton3;
-
-        [Header("Next Button")]
-        public Button nextButton;
-
-        [Header("Correct Answer")]
-        public CorrectChoice correctChoice;
-    }
-
-    [Header("Questions (9)")]
-    public List<QuestionData> questions = new List<QuestionData>();
-
-    private int currentQuestionIndex = 0;
-    private bool answered = false;
 
     // =========================================================
     // LEVEL COMPLETION
@@ -100,6 +137,10 @@ public class Level4Manager : MonoBehaviour
     // FIREBASE
     // =========================================================
 
+    [Header("Firebase")]
+    public string levelId = "level4";
+    public int xpReward = 1000;
+
     private FirebaseFirestore db;
     private FirebaseAuth auth;
 
@@ -128,27 +169,15 @@ public class Level4Manager : MonoBehaviour
         db = FirebaseFirestore.DefaultInstance;
         auth = FirebaseAuth.DefaultInstance;
 
-        foreach (QuestionData question in questions)
-        {
-            question.questionScreen.SetActive(false);
+        if (timerTMP != null)
+            timerOriginalColor = timerTMP.color;
 
-            if (question.questionTMP != null)
-                question.questionTMP.gameObject.SetActive(true);
+        if (nextButtonText == null && nextButton != null)
+            nextButtonText = nextButton.GetComponentInChildren<TMP_Text>(true);
 
-            if (question.correctTMP != null)
-                question.correctTMP.gameObject.SetActive(false);
+        if (levelCompletionScreen != null)
+            levelCompletionScreen.SetActive(false);
 
-            if (question.incorrectTMP != null)
-                question.incorrectTMP.gameObject.SetActive(false);
-
-            if (question.nextButton != null)
-                question.nextButton.gameObject.SetActive(false);
-        }
-
-        levelCompletionScreen.SetActive(false);
-        introScreen.SetActive(true);
-
-        // Try Again Popup
         if (tryAgainPopup != null)
             tryAgainPopup.SetActive(false);
 
@@ -158,8 +187,14 @@ public class Level4Manager : MonoBehaviour
             tryAgainButton.onClick.AddListener(RestartLevel);
         }
 
-        introNextButton.onClick.RemoveAllListeners();
-        introNextButton.onClick.AddListener(StartLevel);
+        // Next button (used for the instruction and after each correct answer).
+        if (nextButton != null)
+        {
+            nextButton.onClick.RemoveAllListeners();
+            nextButton.onClick.AddListener(OnNextClicked);
+        }
+
+        SetupComputerButtons();
 
         remainingTime = Mathf.Max(0f, levelTime);
         UpdateTimerDisplay();
@@ -169,6 +204,34 @@ public class Level4Manager : MonoBehaviour
 
         ApplyVolumeSettings();
         PlayLevelMusic();
+
+        ShowInstruction();
+    }
+
+    private void SetupComputerButtons()
+    {
+        List<Button> allButtons = new List<Button>();
+
+        foreach (QuestionData q in questions)
+        {
+            if (q.button != null && !allButtons.Contains(q.button))
+                allButtons.Add(q.button);
+        }
+
+        foreach (Button b in decoyButtons)
+        {
+            if (b != null && !allButtons.Contains(b))
+                allButtons.Add(b);
+        }
+
+        foreach (Button b in allButtons)
+        {
+            Button captured = b;
+
+            SetButtonColor(captured, defaultColor);
+            captured.onClick.RemoveAllListeners();
+            captured.onClick.AddListener(() => OnComputerButtonClicked(captured));
+        }
     }
 
     // =========================================================
@@ -193,20 +256,6 @@ public class Level4Manager : MonoBehaviour
         UpdateTimerDisplay();
     }
 
-    // =========================================================
-    // START LEVEL
-    // =========================================================
-
-    private void StartLevel()
-    {
-        introScreen.SetActive(false);
-        currentQuestionIndex = 0;
-        remainingTime = Mathf.Max(0f, levelTime);
-        timerRunning = true;
-        UpdateTimerDisplay();
-        ShowQuestion(currentQuestionIndex);
-    }
-
     private void StopTimer()
     {
         timerRunning = false;
@@ -225,6 +274,239 @@ public class Level4Manager : MonoBehaviour
     }
 
     // =========================================================
+    // FLOW
+    // =========================================================
+
+    private void ShowInstruction()
+    {
+        state = GameState.Instruction;
+        currentQuestionIndex = 0;
+
+        if (gameScreen != null)
+            gameScreen.SetActive(true);
+
+        if (dialogueTMP != null)
+            dialogueTMP.text = instructionMessage;
+
+        SetCoverActive(true);
+        SetNextLabel(startLabel);
+
+        if (nextButton != null)
+            nextButton.gameObject.SetActive(true);
+    }
+
+    private void OnNextClicked()
+    {
+        switch (state)
+        {
+            case GameState.Instruction:
+                StartLevel();
+                break;
+
+            case GameState.Answered:
+                NextQuestion();
+                break;
+        }
+    }
+
+    private void StartLevel()
+    {
+        if (questions.Count == 0)
+        {
+            Debug.LogError("Level 4 has no questions assigned.");
+            return;
+        }
+
+        currentQuestionIndex = 0;
+        remainingTime = Mathf.Max(0f, levelTime);
+        timerRunning = true;
+        UpdateTimerDisplay();
+
+        // Game starts: remove the cover image.
+        SetCoverActive(false);
+
+        ShowQuestion(currentQuestionIndex);
+    }
+
+    private void ShowQuestion(int index)
+    {
+        state = GameState.Question;
+
+        if (dialogueTMP != null)
+            dialogueTMP.text = questions[index].dialogue;
+
+        // Next button only appears after the correct button is clicked.
+        if (nextButton != null)
+            nextButton.gameObject.SetActive(false);
+    }
+
+    public void NextQuestion()
+    {
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex >= questions.Count)
+        {
+            state = GameState.Finished;
+            StopTimer();
+
+            // Don't let the cover image block the completion screen.
+            SetCoverActive(false);
+
+            if (gameScreen != null)
+                gameScreen.SetActive(false);
+
+            if (levelCompletionScreen != null)
+                levelCompletionScreen.SetActive(true);
+        }
+        else
+        {
+            ShowQuestion(currentQuestionIndex);
+        }
+    }
+
+    // =========================================================
+    // ANSWER LOGIC
+    // =========================================================
+
+    private void OnComputerButtonClicked(Button clicked)
+    {
+        if (state != GameState.Question)
+            return;
+
+        QuestionData question = questions[currentQuestionIndex];
+
+        if (clicked == question.button)
+        {
+            state = GameState.Answered;
+
+            StopBlink(clicked);
+            solvedButtons.Add(clicked);
+            SetButtonColor(clicked, correctColor);
+
+            PlayCorrectSFX();
+
+            if (dialogueTMP != null)
+                dialogueTMP.text = question.correctDialogue;
+
+            bool isLastQuestion = currentQuestionIndex >= questions.Count - 1;
+
+            SetNextLabel(isLastQuestion ? finishLabel : nextLabel);
+
+            // Finish step: stop the timer and cover the page again
+            // so only the dialogue and button show.
+            if (isLastQuestion)
+            {
+                StopTimer();
+                SetCoverActive(true);
+            }
+
+            if (nextButton != null)
+                nextButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (dialogueTMP != null)
+                dialogueTMP.text = question.wrongDialogue;
+
+            PlayWrongSFX();
+
+            StopBlink(clicked);
+            blinkRoutines[clicked] = StartCoroutine(BlinkWrong(clicked));
+
+            // Time penalty for a wrong answer.
+            remainingTime -= wrongAnswerPenalty;
+
+            // Blink the timer red.
+            if (timerBlinkRoutine != null)
+                StopCoroutine(timerBlinkRoutine);
+
+            timerBlinkRoutine = StartCoroutine(BlinkTimerRed());
+
+            if (remainingTime <= 0f)
+            {
+                remainingTime = 0f;
+                UpdateTimerDisplay();
+                ShowTryAgainPopup();
+            }
+            else
+            {
+                UpdateTimerDisplay();
+            }
+        }
+    }
+
+    private IEnumerator BlinkWrong(Button button)
+    {
+        for (int i = 0; i < blinkCount; i++)
+        {
+            SetButtonColor(button, wrongColor);
+            yield return new WaitForSeconds(blinkInterval);
+
+            SetButtonColor(button, GetRestColor(button));
+            yield return new WaitForSeconds(blinkInterval);
+        }
+
+        blinkRoutines.Remove(button);
+    }
+
+    private void StopBlink(Button button)
+    {
+        if (blinkRoutines.TryGetValue(button, out Coroutine routine))
+        {
+            if (routine != null)
+                StopCoroutine(routine);
+
+            blinkRoutines.Remove(button);
+        }
+
+        SetButtonColor(button, GetRestColor(button));
+    }
+
+    // Solved buttons stay green for the whole game.
+    private Color GetRestColor(Button button)
+    {
+        return solvedButtons.Contains(button) ? correctColor : defaultColor;
+    }
+
+    private IEnumerator BlinkTimerRed()
+    {
+        if (timerTMP == null)
+            yield break;
+
+        float elapsed = 0f;
+
+        while (elapsed < timerBlinkDuration)
+        {
+            timerTMP.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+
+            timerTMP.color = timerOriginalColor;
+            yield return new WaitForSeconds(0.1f);
+
+            elapsed += 0.2f;
+        }
+
+        timerTMP.color = timerOriginalColor;
+        timerBlinkRoutine = null;
+    }
+
+    // =========================================================
+    // COVER IMAGE + NEXT BUTTON TEXT HELPERS
+    // =========================================================
+
+    private void SetCoverActive(bool active)
+    {
+        if (coverImage != null)
+            coverImage.SetActive(active);
+    }
+
+    private void SetNextLabel(string text)
+    {
+        if (nextButtonText != null)
+            nextButtonText.text = text;
+    }
+
+    // =========================================================
     // TRY AGAIN POPUP
     // =========================================================
 
@@ -235,23 +517,28 @@ public class Level4Manager : MonoBehaviour
             return;
 
         timerRunning = false;
-        answered = true;
+        state = GameState.Finished;
 
-        // Hide current question.
-        if (currentQuestionIndex < questions.Count)
-            questions[currentQuestionIndex].questionScreen.SetActive(false);
+        // Stop the timer blink and restore its color.
+        if (timerBlinkRoutine != null)
+        {
+            StopCoroutine(timerBlinkRoutine);
+            timerBlinkRoutine = null;
+        }
 
-        // Hide intro/completion screens if visible.
-        if (introScreen != null)
-            introScreen.SetActive(false);
+        if (timerTMP != null)
+            timerTMP.color = timerOriginalColor;
+
+        SetCoverActive(false);
+
+        if (gameScreen != null)
+            gameScreen.SetActive(false);
 
         if (levelCompletionScreen != null)
             levelCompletionScreen.SetActive(false);
 
-        // Stop background music.
         StopLevelMusic();
 
-        // Show popup.
         if (tryAgainPopup != null)
             tryAgainPopup.SetActive(true);
     }
@@ -262,7 +549,6 @@ public class Level4Manager : MonoBehaviour
             tryAgainPopup.SetActive(false);
 
         timerRunning = false;
-        answered = false;
 
         StopLevelMusic();
 
@@ -270,116 +556,6 @@ public class Level4Manager : MonoBehaviour
             AudioManager.Instance.ResumeMainMenuMusic();
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-        // =========================================================
-    // SHOW QUESTION
-    // =========================================================
-
-    private void ShowQuestion(int index)
-    {
-        QuestionData question = questions[index];
-        answered = false;
-
-        question.questionScreen.SetActive(true);
-
-        question.questionTMP.gameObject.SetActive(true);
-        question.correctTMP.gameObject.SetActive(false);
-        question.incorrectTMP.gameObject.SetActive(false);
-
-        question.nextButton.gameObject.SetActive(false);
-        question.nextButton.onClick.RemoveAllListeners();
-        question.nextButton.onClick.AddListener(NextQuestion);
-
-        Button[] buttons =
-        {
-            question.choiceButton1,
-            question.choiceButton2,
-            question.choiceButton3
-        };
-
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            int buttonIndex = i;
-
-            buttons[i].interactable = true;
-
-            ColorBlock colors = buttons[i].colors;
-            colors.normalColor = Color.white;
-            colors.highlightedColor = Color.white;
-            colors.selectedColor = Color.white;
-            colors.pressedColor = Color.white;
-            colors.disabledColor = Color.white;
-            buttons[i].colors = colors;
-
-            buttons[i].onClick.RemoveAllListeners();
-            buttons[i].onClick.AddListener(() => SelectAnswer(buttonIndex));
-        }
-    }
-
-    // =========================================================
-    // ANSWER LOGIC
-    // =========================================================
-
-    private void SelectAnswer(int selectedIndex)
-    {
-        if (answered) return;
-
-        answered = true;
-
-        QuestionData question = questions[currentQuestionIndex];
-
-        Button[] buttons =
-        {
-            question.choiceButton1,
-            question.choiceButton2,
-            question.choiceButton3
-        };
-
-        int correctIndex = (int)question.correctChoice;
-
-        foreach (Button button in buttons)
-            button.interactable = false;
-
-        question.questionTMP.gameObject.SetActive(false);
-
-        if (selectedIndex == correctIndex)
-        {
-            SetButtonColor(buttons[correctIndex], Color.green);
-            question.correctTMP.gameObject.SetActive(true);
-
-            PlayCorrectSFX();
-        }
-        else
-        {
-            SetButtonColor(buttons[selectedIndex], Color.red);
-            SetButtonColor(buttons[correctIndex], Color.green);
-            question.incorrectTMP.gameObject.SetActive(true);
-
-            PlayWrongSFX();
-        }
-
-        question.nextButton.gameObject.SetActive(true);
-    }
-
-    // =========================================================
-    // NEXT QUESTION
-    // =========================================================
-
-    public void NextQuestion()
-    {
-        questions[currentQuestionIndex].questionScreen.SetActive(false);
-
-        currentQuestionIndex++;
-
-        if (currentQuestionIndex >= questions.Count)
-        {
-            StopTimer();
-            levelCompletionScreen.SetActive(true);
-        }
-        else
-        {
-            ShowQuestion(currentQuestionIndex);
-        }
     }
 
     // =========================================================
@@ -446,7 +622,8 @@ public class Level4Manager : MonoBehaviour
 
         sfxSource.PlayOneShot(wrongSFX);
     }
-        // =========================================================
+
+    // =========================================================
     // EXIT LEVEL
     // =========================================================
 
@@ -487,7 +664,7 @@ public class Level4Manager : MonoBehaviour
 
             DocumentReference levelRef = userRef
                 .Collection("progress")
-                .Document("level4");
+                .Document(levelId);
 
             DocumentSnapshot levelSnapshot =
                 await levelRef.GetSnapshotAsync();
@@ -497,7 +674,7 @@ public class Level4Manager : MonoBehaviour
                 levelSnapshot.TryGetValue("completed", out bool completed) &&
                 completed)
             {
-                Debug.Log("Level 4 already completed.");
+                Debug.Log(levelId + " already completed.");
                 return;
             }
 
@@ -523,10 +700,10 @@ public class Level4Manager : MonoBehaviour
 
             await userRef.UpdateAsync(new Dictionary<string, object>()
             {
-                { "xp", currentXP + 1000 }
+                { "xp", currentXP + xpReward }
             });
 
-            Debug.Log("Level 4 progress saved successfully.");
+            Debug.Log(levelId + " progress saved successfully.");
 
             // =====================================================
             // BADGES
@@ -534,16 +711,13 @@ public class Level4Manager : MonoBehaviour
 
             if (BadgeManager.Instance != null)
             {
-                // Level 4 completed
-                BadgeManager.Instance.LevelCompleted("level4");
-
-                // XP-based badges
-                BadgeManager.Instance.CheckXPBadges(currentXP + 1000);
+                BadgeManager.Instance.LevelCompleted(levelId);
+                BadgeManager.Instance.CheckXPBadges(currentXP + xpReward);
             }
         }
         catch (System.Exception e)
         {
-            Debug.LogError("Level 4 progress save error: " + e.Message);
+            Debug.LogError(levelId + " progress save error: " + e.Message);
         }
     }
 }

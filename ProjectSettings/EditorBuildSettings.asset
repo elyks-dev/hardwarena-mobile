@@ -52,7 +52,7 @@ EditorBuildSettings:
     guid: 334c1b2d228824a2abe6a4606c1412a2
   - enabled: 1
     path: Assets/Scenes/LevelsScenes/Level2Scene.unity
-    guid: e11f01f00184344f09624664b87b7ebd
+    guid: 8024cd55eb1544d4aa82f5de022106b2
   - enabled: 1
     path: Assets/Scenes/QuizScenes/Quiz2Scene.unity
     guid: a61ac676d9990416e8d9d41b4be70ce5
@@ -70,7 +70,7 @@ EditorBuildSettings:
     guid: 2148050d19f7844c2b3f894842af07b3
   - enabled: 1
     path: Assets/Scenes/LevelsScenes/Level4Scene.unity
-    guid: 0177eb54a9866469ea5c8b472d6f946e
+    guid: 9c6e87c0d18c3497a8bf72224d68f789
   - enabled: 1
     path: Assets/Scenes/QuizScenes/Quiz4Scene.unity
     guid: a2ef61ea28ff64a748de8e258a65dd33
@@ -113,6 +113,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelCutScenes/FinalCutsceneScene.unity
     guid: 46603740e5c924de08c6d1aca4753fdb
+  - enabled: 1
+    path: Assets/Scenes/LevelsScenes/Level2SceneOLD.unity
+    guid: e11f01f00184344f09624664b87b7ebd
+  - enabled: 1
+    path: Assets/Scenes/LevelsScenes/Level4SceneOLD.unity
+    guid: 0177eb54a9866469ea5c8b472d6f946e
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

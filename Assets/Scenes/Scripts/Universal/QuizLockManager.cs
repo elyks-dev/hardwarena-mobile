@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase.Auth;
@@ -25,8 +26,8 @@ public class QuizLockManager : MonoBehaviour
     [Header("Quiz List")]
     public List<QuizUI> quizzes = new List<QuizUI>();
 
-    FirebaseFirestore db;
-    FirebaseAuth auth;
+    private FirebaseFirestore db;
+    private FirebaseAuth auth;
     private bool isDestroyed = false;
 
     async void Start()
@@ -133,9 +134,10 @@ public class QuizLockManager : MonoBehaviour
                 if (quiz == null)
                     continue;
 
+                // Read level completion.
                 bool levelCompleted = false;
-                DocumentSnapshot progressDoc =
-                    allDocuments[i];
+
+                DocumentSnapshot progressDoc = allDocuments[i];
 
                 if (progressDoc != null &&
                     progressDoc.Exists &&
@@ -148,25 +150,44 @@ public class QuizLockManager : MonoBehaviour
 
                 if (levelCompleted)
                 {
-                    Debug.Log($"{quiz.levelCompletedKey} unlocked.");
+                    Debug.Log(
+                        $"{quiz.levelCompletedKey} unlocked."
+                    );
                 }
                 else
                 {
-                    Debug.Log($"{quiz.levelCompletedKey} still locked.");
+                    Debug.Log(
+                        $"{quiz.levelCompletedKey} still locked."
+                    );
                 }
 
+                // Read quiz attempt information.
                 DocumentSnapshot quizDoc =
                     allDocuments[progressTasks.Count + i];
 
-                bool quizCompleted =
-                    quizDoc != null &&
-                    quizDoc.Exists;
+                int attemptsUsed = 0;
 
-                if (quizCompleted)
+                if (quizDoc != null && quizDoc.Exists)
                 {
-                    Debug.Log($"{quiz.quizCompletedKey} completed.");
+                    if (quizDoc.TryGetValue(
+                        "attemptsUsed",
+                        out int savedAttemptsUsed))
+                    {
+                        attemptsUsed = savedAttemptsUsed;
+                    }
                 }
 
+                // The quiz is finished only after two attempts.
+                bool quizCompleted = attemptsUsed >= 2;
+
+                Debug.Log(
+                    $"{quiz.quizCompletedKey}: " +
+                    $"attemptsUsed={attemptsUsed}, " +
+                    $"quizCompleted={quizCompleted}"
+                );
+
+                // Show the regular lock only if the level is incomplete
+                // and the quiz has not used both attempts.
                 if (quiz.lockLayer != null)
                 {
                     quiz.lockLayer.SetActive(
@@ -174,6 +195,7 @@ public class QuizLockManager : MonoBehaviour
                     );
                 }
 
+                // Show QuizDone only after both attempts are used.
                 if (quiz.doneLayer != null)
                 {
                     quiz.doneLayer.SetActive(quizCompleted);

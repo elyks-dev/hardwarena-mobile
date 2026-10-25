@@ -13,8 +13,19 @@ public class Level2HazardManager : MonoBehaviour
     [System.Serializable]
     public class HazardItem
     {
-        [Header("Hazard Button")]
-        public Button button;
+        [Tooltip("Label for the inspector only, e.g. Headset.")]
+        public string hazardName;
+
+        [Header("Clickable Objects")]
+        [Tooltip("Clicking ANY of these counts as finding this hazard (e.g. both headsets).")]
+        public Button[] buttons;
+
+        [Header("Shown When Found")]
+        [Tooltip("All circle images are activated when found (e.g. both headset circles).")]
+        public GameObject[] circles;
+
+        [Tooltip("One info card per hazard.")]
+        public GameObject infoCard;
 
         [HideInInspector]
         public bool identified = false;
@@ -25,16 +36,10 @@ public class Level2HazardManager : MonoBehaviour
     // =====================================================
 
     [Header("Screens")]
-    public GameObject introScreen;
-    public GameObject hazardScreen;
-    public GameObject cleanScreen;
     public GameObject failedPopup;
 
     [Header("Level Completion")]
     public GameObject levelCompletionScreen;
-
-    [Tooltip("How long the clean screen stays before showing the completion screen.")]
-    public float cleanScreenDuration = 3f;
 
     [Header("Scene Navigation")]
     public string selectLevelSceneName = "SelectLevelScene";
@@ -48,10 +53,9 @@ public class Level2HazardManager : MonoBehaviour
     public float levelTime = 60f;
 
     public TMP_Text timerTMP;
-    public Slider timerSlider;
 
     // =====================================================
-    // INCORRECT OBJECT PENALTY (NEW)
+    // INCORRECT OBJECT PENALTY
     // =====================================================
 
     [Header("Incorrect Object Penalty")]
@@ -75,10 +79,32 @@ public class Level2HazardManager : MonoBehaviour
     public TMP_Text hazardCounterTMP;
 
     // =====================================================
+    // INFO CARDS PANEL
+    // =====================================================
+
+    [Header("Info Cards Panel")]
+    [Tooltip("Parent object that holds all the info cards.")]
+    public GameObject infoCardsObject;
+
+    [Tooltip("Opens the info cards, then hides itself.")]
+    public Button openButton;
+
+    [Tooltip("Closes the info cards and shows the open button again.")]
+    public Button closeButton;
+
+    // =====================================================
+    // FINISH BUTTON
+    // =====================================================
+
+    [Header("Finish Level")]
+    [Tooltip("Appears once every hazard is found. Clicking it finishes the level.")]
+    public Button finishLevelButton;
+
+    // =====================================================
     // HAZARDS
     // =====================================================
 
-    [Header("Hazard Buttons")]
+    [Header("Hazards (Headset, Aircon, PowerCable, Chair, Socket)")]
     public HazardItem[] hazards;
 
     // =====================================================
@@ -88,7 +114,9 @@ public class Level2HazardManager : MonoBehaviour
     private float currentTime;
     private int identifiedCount;
     private bool levelFinished;
+    private bool allHazardsFound;
     private Coroutine timerRoutine;
+    private Task saveTask;
 
     // =====================================================
     // FIREBASE
@@ -118,33 +146,18 @@ public class Level2HazardManager : MonoBehaviour
 
     private void ResetLevel()
     {
-        if (timerRoutine != null)
-        {
-            StopCoroutine(timerRoutine);
-            timerRoutine = null;
-        }
-
-        if (timerBlinkRoutine != null)
-        {
-            StopCoroutine(timerBlinkRoutine);
-            timerBlinkRoutine = null;
-        }
+        StopAllCoroutines();
+        timerRoutine = null;
+        timerBlinkRoutine = null;
+        saveTask = null;
 
         currentTime = levelTime;
         identifiedCount = 0;
         levelFinished = false;
+        allHazardsFound = false;
 
         if (timerTMP != null)
             timerTMP.color = timerOriginalColor;
-
-        if (introScreen != null)
-            introScreen.SetActive(true);
-
-        if (hazardScreen != null)
-            hazardScreen.SetActive(false);
-
-        if (cleanScreen != null)
-            cleanScreen.SetActive(false);
 
         if (failedPopup != null)
             failedPopup.SetActive(false);
@@ -152,29 +165,36 @@ public class Level2HazardManager : MonoBehaviour
         if (levelCompletionScreen != null)
             levelCompletionScreen.SetActive(false);
 
-        // Reset hazards
+        // Finish button stays hidden until every hazard is found
+        if (finishLevelButton != null)
+        {
+            finishLevelButton.gameObject.SetActive(false);
+            finishLevelButton.onClick.RemoveAllListeners();
+            finishLevelButton.onClick.AddListener(FinishLevel);
+        }
+
+        // Hook up hazard buttons
         if (hazards != null)
         {
             foreach (HazardItem hazard in hazards)
             {
-                if (hazard == null)
+                if (hazard == null || hazard.buttons == null)
                     continue;
 
-                hazard.identified = false;
+                HazardItem currentHazard = hazard;
 
-                if (hazard.button != null)
+                foreach (Button button in hazard.buttons)
                 {
-                    hazard.button.gameObject.SetActive(true);
-                    hazard.button.interactable = true;
-                    hazard.button.onClick.RemoveAllListeners();
+                    if (button == null)
+                        continue;
 
-                    HazardItem currentHazard = hazard;
-                    hazard.button.onClick.AddListener(() => IdentifyHazard(currentHazard));
+                    button.onClick.RemoveAllListeners();
+                    button.onClick.AddListener(() => IdentifyHazard(currentHazard));
                 }
             }
         }
 
-        // Reset incorrect buttons
+        // Hook up incorrect buttons
         if (incorrectButtons != null)
         {
             foreach (Button btn in incorrectButtons)
@@ -182,7 +202,6 @@ public class Level2HazardManager : MonoBehaviour
                 if (btn == null)
                     continue;
 
-                btn.interactable = true;
                 btn.onClick.RemoveAllListeners();
 
                 Button currentButton = btn;
@@ -190,47 +209,26 @@ public class Level2HazardManager : MonoBehaviour
             }
         }
 
-        UpdateTimerUI();
-        UpdateHazardCounter();
-    }
+        // Hook up open / close buttons
+        if (openButton != null)
+        {
+            openButton.onClick.RemoveAllListeners();
+            openButton.onClick.AddListener(OpenInfoCards);
+        }
 
-    // =====================================================
-    // START HAZARD GAME
-    // =====================================================
-
-    public void StartHazardGame()
-    {
-        if (levelFinished)
-            return;
-
-        if (introScreen != null)
-            introScreen.SetActive(false);
-
-        if (hazardScreen != null)
-            hazardScreen.SetActive(true);
-
-        Level2AudioManager.Instance?.PlayLevelMusic();
-
-        if (cleanScreen != null)
-            cleanScreen.SetActive(false);
-
-        if (failedPopup != null)
-            failedPopup.SetActive(false);
-
-        currentTime = levelTime;
-        identifiedCount = 0;
-        levelFinished = false;
-
-        if (timerTMP != null)
-            timerTMP.color = timerOriginalColor;
+        if (closeButton != null)
+        {
+            closeButton.onClick.RemoveAllListeners();
+            closeButton.onClick.AddListener(CloseInfoCards);
+        }
 
         ResetHazards();
 
         UpdateTimerUI();
         UpdateHazardCounter();
 
-        if (timerRoutine != null)
-            StopCoroutine(timerRoutine);
+        // The game starts right away: music + timer.
+        Level2AudioManager.Instance?.PlayLevelMusic();
 
         timerRoutine = StartCoroutine(TimerRoutine());
     }
@@ -259,10 +257,6 @@ public class Level2HazardManager : MonoBehaviour
         timerRoutine = null;
     }
 
-    // =====================================================
-    // TIMER UI
-    // =====================================================
-
     private void UpdateTimerUI()
     {
         if (timerTMP != null)
@@ -276,20 +270,15 @@ public class Level2HazardManager : MonoBehaviour
             else
                 timerTMP.text = remainingSeconds.ToString();
         }
-
-        if (timerSlider != null)
-        {
-            timerSlider.maxValue = levelTime;
-            timerSlider.value = currentTime;
-        }
     }
-        // =====================================================
-    // WRONG OBJECT CLICK (NEW)
+
+    // =====================================================
+    // WRONG OBJECT CLICK
     // =====================================================
 
     public void IncorrectObjectClicked(Button clickedButton)
     {
-        if (levelFinished)
+        if (levelFinished || allHazardsFound)
             return;
 
         // Play incorrect sound
@@ -379,6 +368,7 @@ public class Level2HazardManager : MonoBehaviour
         if (hazard == null)
             return;
 
+        // Clicking either headset (or any button of this hazard) only counts once.
         if (hazard.identified)
             return;
 
@@ -388,13 +378,50 @@ public class Level2HazardManager : MonoBehaviour
 
         identifiedCount++;
 
-        if (hazard.button != null)
-            hazard.button.gameObject.SetActive(false);
+        // Activate every circle for this hazard (both headsets, etc.)
+        if (hazard.circles != null)
+        {
+            foreach (GameObject circle in hazard.circles)
+            {
+                if (circle != null)
+                    circle.SetActive(true);
+            }
+        }
+
+        // Activate the single info card
+        if (hazard.infoCard != null)
+            hazard.infoCard.SetActive(true);
 
         UpdateHazardCounter();
 
         if (identifiedCount >= hazards.Length)
-            SuccessLevel();
+            AllHazardsFound();
+    }
+
+    // =====================================================
+    // INFO CARDS PANEL
+    // =====================================================
+
+    public void OpenInfoCards()
+    {
+        SetInfoCardsOpen(true);
+    }
+
+    public void CloseInfoCards()
+    {
+        SetInfoCardsOpen(false);
+    }
+
+    private void SetInfoCardsOpen(bool open)
+    {
+        if (infoCardsObject != null)
+            infoCardsObject.SetActive(open);
+
+        if (openButton != null)
+            openButton.gameObject.SetActive(!open);
+
+        if (closeButton != null)
+            closeButton.gameObject.SetActive(open);
     }
 
     // =====================================================
@@ -416,49 +443,48 @@ public class Level2HazardManager : MonoBehaviour
     // SUCCESS
     // =====================================================
 
-    private void SuccessLevel()
+    // Last hazard found: stop the timer and show the finish button.
+    // The level does NOT end yet, so the player can read the info cards.
+    private void AllHazardsFound()
     {
-        if (levelFinished)
+        if (levelFinished || allHazardsFound)
             return;
 
-        levelFinished = true;
+        allHazardsFound = true;
 
-        // Stop timer
+        // Stop timer so the player can't run out of time while reading
         if (timerRoutine != null)
         {
             StopCoroutine(timerRoutine);
             timerRoutine = null;
         }
 
-        // Hide hazard screen
-        if (hazardScreen != null)
-            hazardScreen.SetActive(false);
+        if (finishLevelButton != null)
+            finishLevelButton.gameObject.SetActive(true);
+    }
 
-        // Show success screen
-        if (cleanScreen != null)
-            cleanScreen.SetActive(true);
+    // Clicking the finish button actually completes the level.
+    public void FinishLevel()
+    {
+        if (levelFinished || !allHazardsFound)
+            return;
 
-        // Hide completion screen until delay finishes
-        if (levelCompletionScreen != null)
-            levelCompletionScreen.SetActive(false);
+        levelFinished = true;
 
         if (failedPopup != null)
             failedPopup.SetActive(false);
 
         UpdateHazardCounter();
 
-        StartCoroutine(ShowCompletionScreenRoutine());
-    }
+        if (finishLevelButton != null)
+            finishLevelButton.gameObject.SetActive(false);
 
-    private IEnumerator ShowCompletionScreenRoutine()
-    {
-        yield return new WaitForSeconds(cleanScreenDuration);
-
-        if (cleanScreen != null)
-            cleanScreen.SetActive(false);
-
+        // Show the completion screen.
         if (levelCompletionScreen != null)
             levelCompletionScreen.SetActive(true);
+
+        // Save progress + XP as soon as the level is finished.
+        saveTask = SaveLevelCompletion();
     }
 
     // =====================================================
@@ -472,7 +498,10 @@ public class Level2HazardManager : MonoBehaviour
 
         Level2AudioManager.Instance?.ExitLevel();
 
-        await SaveLevelCompletion();
+        // Progress was already saved when the level was completed;
+        // just make sure that save has finished before leaving.
+        if (saveTask != null)
+            await saveTask;
 
         SceneManager.LoadScene(selectLevelSceneName);
     }
@@ -545,7 +574,8 @@ public class Level2HazardManager : MonoBehaviour
             Debug.LogError("Level 2 progress save error: " + e.Message);
         }
     }
-        // =====================================================
+
+    // =====================================================
     // FAILURE
     // =====================================================
 
@@ -578,21 +608,23 @@ public class Level2HazardManager : MonoBehaviour
         if (timerTMP != null)
             timerTMP.color = timerOriginalColor;
 
-        // Hide gameplay screen
-        if (hazardScreen != null)
-            hazardScreen.SetActive(false);
-
         // Show failed popup
         if (failedPopup != null)
             failedPopup.SetActive(true);
 
-        // Disable remaining hazards
+        // Disable hazard buttons
         if (hazards != null)
         {
             foreach (HazardItem hazard in hazards)
             {
-                if (hazard != null && hazard.button != null)
-                    hazard.button.interactable = false;
+                if (hazard == null || hazard.buttons == null)
+                    continue;
+
+                foreach (Button button in hazard.buttons)
+                {
+                    if (button != null)
+                        button.interactable = false;
+                }
             }
         }
 
@@ -631,11 +663,30 @@ public class Level2HazardManager : MonoBehaviour
 
                 hazard.identified = false;
 
-                if (hazard.button != null)
+                if (hazard.buttons != null)
                 {
-                    hazard.button.gameObject.SetActive(true);
-                    hazard.button.interactable = true;
+                    foreach (Button button in hazard.buttons)
+                    {
+                        if (button == null)
+                            continue;
+
+                        button.gameObject.SetActive(true);
+                        button.interactable = true;
+                    }
                 }
+
+                // Hide circles and info card until found
+                if (hazard.circles != null)
+                {
+                    foreach (GameObject circle in hazard.circles)
+                    {
+                        if (circle != null)
+                            circle.SetActive(false);
+                    }
+                }
+
+                if (hazard.infoCard != null)
+                    hazard.infoCard.SetActive(false);
             }
         }
 
@@ -655,6 +706,9 @@ public class Level2HazardManager : MonoBehaviour
                     image.color = Color.white;
             }
         }
+
+        // Info cards start closed, with the open button showing
+        SetInfoCardsOpen(false);
 
         // Reset timer color
         if (timerTMP != null)
