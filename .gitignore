@@ -32,3 +32,5 @@ MemoryCaptures/
 # Firebase macOS desktop plugins (too large, not needed for Android/iOS)
 Assets/Firebase/Plugins/x86_64/
 Assets/Firebase/Plugins/iOS/*.bundle
+
+firestore.rules
